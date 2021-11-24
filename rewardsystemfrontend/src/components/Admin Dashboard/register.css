@@ -1,0 +1,27 @@
+.setup {
+  /* background: #282c34; */
+  background-image: linear-gradient(to bottom right, #acb6e5,#86fde8);
+  min-height: 100vh;
+  display:flex;
+  flex-direction:center;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.SetupForm{
+  background-color:#ffffff;
+  box-shadow: 10px 10px 5px rgba(163, 158, 158,0.4);
+  border-radius: 15px;
+  width:90vh;
+  height:70vh; 
+  margin-top: 2vh;
+ margin: 20,20,20,20;
+ text-align: center;
+ justify-content: center;
+ align-items: center;
+ display:flex;
+ color: black;
+
+}

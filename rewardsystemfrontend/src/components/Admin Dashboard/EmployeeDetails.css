@@ -1,0 +1,33 @@
+.Mytable{
+   width:100%;
+   margin:30px 30px 30px 60px;
+   
+   }
+   
+   .TableContainer{
+      width:80%;
+      height:100vh;
+      margin:30px 30px 30px 60px;
+   }
+   
+   /* .table{
+      border: 2px solid black;
+      background-color: rgb(180, 180, 228);
+   } */
+   
+   .mb-1{
+      background-color:#acb6e5 ;
+      color: black;
+      font-weight: bold;
+      border: 1px solid #acb6e5;
+      box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2);
+      
+   }
+   
+   .mb-1:hover{
+      box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2);
+      background-color:#879bf3 ;
+      border: 1px solid #acb6e5;
+   }
+   
+   

@@ -1,0 +1,69 @@
+.setupLogin {
+  background-color:#ffc8fa;  
+  background-image: linear-gradient(to bottom right, #acb6e5,#86fde8);
+ min-height: 100vh;
+ display:flex;
+ flex-direction:column;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+
+ 
+}
+
+
+
+.Managecontainer{
+width: 100%;
+ margin: auto;
+ color: black;
+ font-weight: 700;
+ font-size:20px;
+ background-color:#acb6e5 ;
+ border: none;
+ box-shadow: 5px 5px 5px rgb(204, 203, 203);
+/* margin-left: 30vh;
+align-items: flex-end; */
+}
+
+.Managecontainer:hover{
+box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2);
+background-color:#879bf3 ;
+}
+
+
+
+
+.SetupFormLogin{
+ background-color:#fdfdfd;
+ width:70vh;
+ height:80vh; 
+ margin-top: 2vh;
+margin: 20,20,20,20;
+text-align: center;
+justify-content: center;
+align-items: center;
+display:flex;
+flex-direction: column;
+border-radius: 10px;
+box-shadow: 10px 10px 5px rgb(78, 78, 78);
+
+}
+
+.SetupFormLogin h2{
+ position: absolute;
+top: 20%;
+font-weight: bold;
+}
+
+.mb-3{
+ font-size: 20px;
+ font-weight: bold;
+}
+
+.mb-5{
+ font-size: 20px;
+ font-weight: bold;
+}
+
+
