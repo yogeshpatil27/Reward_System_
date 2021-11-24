@@ -88,7 +88,7 @@ const EmployeeDetails = () => {
     { dataField: "designation", text: "Designation" },
     { dataField: "department", text: "Department" },
     { dataField: "manager.name", text: "Manager" },
-    { dataField: "editButton", text: "Edit", formatter: editButton },
+    { dataField: "editButton", text: "Actions", formatter: editButton },
     
   ];
 

@@ -11,23 +11,6 @@ import axios from "axios";
 
 const Edituser = (props) => {
   
-// const Container= styled.div`
-// display : flex;
-// align-item:center;
-// justify-content-center;
-// height:100vh;
-// `
-
-// const Wrapper=styled.div`
-// max-width:700px;
-// width:100%;
-// margin:auto;
-// display:flex;
-// height:60vh;
-// background-color:teal;
-// justify-content:center;
-// align-items:center;
-// `
 
 const FormButtons=styled.div`
 display:flex;
