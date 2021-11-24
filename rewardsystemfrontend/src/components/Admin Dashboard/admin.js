@@ -17,7 +17,7 @@ const Admin=() =>{
 
 const authenticateLogin=()=>{
       if (isAuthenticated() && isAuthenticated().designation === "Admin") {
-          console.log("I am a Admin");
+          //console.log("I am a Admin");
           history.push('/admin')
         } else{
             history.push('/')

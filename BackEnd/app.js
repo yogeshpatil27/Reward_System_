@@ -69,7 +69,6 @@ const employee1 = new mongoose.Schema({
  app.use("/employees",employeesRoutes);
  app.use("/employees/details",employeesRoutes);
  app.use("/nominations", nominationsRoutes);
- 
  app.use("/winners", winnersRoutes);
 
 

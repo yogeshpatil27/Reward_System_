@@ -15,25 +15,25 @@ const Login = () => {
 
 useEffect(() => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
-        console.log("I am a Admin");
+      //  console.log("I am a Admin");
         history.push('/admin')
       } else if (
         isAuthenticated() &&
         isAuthenticated().designation === "Manager"
       ) {
-        console.log("I am a Manager");
+      //  console.log("I am a Manager");
         history.push('/Manager')
       } else if (
         isAuthenticated() &&
         isAuthenticated().designation === "Team Lead"
       ) {
-        console.log("I am Team Lead");
+      //  console.log("I am Team Lead");
         history.push('/Employee')
       } else if (
         isAuthenticated() &&
         isAuthenticated().designation === "Employee"
       ) {
-        console.log("I am a Employee");
+       // console.log("I am a Employee");
         history.push('/Employee')
       }  
 }, [])
@@ -70,8 +70,7 @@ useEffect(() => {
     evt.preventDefault();
    
     await axios.post("http://localhost:9009/login", user).then((res) => {
-         alert(res.data.message);
-         
+         //alert(res.data.message);
         setAuthentification(res?.data?.token, res?.data?.user);
 
         if (isAuthenticated() && isAuthenticated().designation == "Admin") {
