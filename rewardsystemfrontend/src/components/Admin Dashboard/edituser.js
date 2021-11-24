@@ -4,7 +4,7 @@ import { Form, Button, Row, Col, Container } from "react-bootstrap"
 import { isAuthenticated } from '../../Authen';
 import React, { useState, useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./register.css";
+import "./edituser.css";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 
