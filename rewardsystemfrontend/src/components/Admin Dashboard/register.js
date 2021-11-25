@@ -148,7 +148,7 @@ else if(!isStrongPassword(values.password)){
 
       <Container className="SetupForm">
         <Form>
-        <h2>Register Employee</h2>
+        <h2 className='heading'>Register Employee</h2>
           <Form.Group as={Row} className="mb-2" controlId="formPlaintextName">
             <Form.Label column sm="4">
               Name

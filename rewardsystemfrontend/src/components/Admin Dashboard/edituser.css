@@ -18,3 +18,9 @@
       margin: 10px 8px;
       /* justify-content: space-around; */
   }
+  .heading-1{
+    position: absolute;
+   top: 15%;
+   margin: auto;
+   font-weight: bold;
+   }
