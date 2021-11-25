@@ -25,3 +25,10 @@
  color: black;
 
 }
+
+.heading{
+  position: absolute;
+ top: 20%;
+ font-weight: bold;
+ }
+ 

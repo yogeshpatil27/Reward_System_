@@ -90,8 +90,10 @@ const update = () => {
         <>
 <Container className="SetupForm">
 
-<div className="card-body">
+{/*<div className="card-body">*/}
 <Form>
+<h2 className="heading-1">Update Details</h2>
+
           <Form.Group as={Row} className="mb-2">
             <Form.Label column sm="4">
               Name
@@ -192,23 +194,7 @@ const update = () => {
             </Col>
           </Form.Group>
 
-          <Form.Group
-            as={Row}
-            className="mb-3"
-            controlId="formPlaintextPassword"
-          >
-            <Form.Label column sm="4">
-              Password
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control
-                name="password"
-                type="password"
-                value={empDetails.password}
-                onChange={handleChange}
-              />
-            </Col>
-          </Form.Group>
+          
 
 
    <FormButtons>
@@ -226,15 +212,12 @@ const update = () => {
      
         </Form>
         
-{/* </Wrapper> */}
 
-{/* <div>{JSON.stringify(empDetails)}</div>   */}
-        {/* </Container> */}
 
-        </div>      
+             
        
         </Container>
-<br/>
+
         
         </>
     )
