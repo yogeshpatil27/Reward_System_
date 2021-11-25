@@ -8,6 +8,8 @@ import axios from "axios";
 import Validator from "validator";
 import isEmail from "validator/es/lib/isEmail";
 import isEmpty from "validator/es/lib/isEmpty";
+import isStrongPassword from "validator/es/lib/isStrongPassword";
+
 import Admin from "./admin";
 import { isAuthenticated } from "../../Authen";
 import styled from "styled-components";
@@ -45,6 +47,9 @@ const Register = () => {
     errormsg: false,
   });
 
+
+  
+
   const [ManagerList, setManagerData] = useState([]);
 
     const handleChange = (e) => {
@@ -59,44 +64,87 @@ const Register = () => {
     history.push("/admin");
   };
 
+  const [formError, setFormError]= useState({});
+const [isSubmit, setisSubmit]=useState(false);
+
+useEffect(()=>{
+if(Object.keys(formError).length===0&&isSubmit){
+  const { name, email, designation, department, manager, password } = user;
+
+  axios.post("http://localhost:9009/employees", user).then((res) => {
+    alert(res.data.message);
+    // //            setLoginUser(res.data.user)
+  });
+  history.push("/admin");
+}
+
+},[formError])
+
+
+  const validate =(values)=>{
+const error = {};
+
+if(isEmpty(values.name)){
+  error.name="Please Enter Name"
+} 
+if(!isEmail(values.email)){
+error.email="Please enter valid Email address"
+}
+if(!values.password){
+  error.password="Please enter password";
+}
+else if(!isStrongPassword(values.password)){
+  error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
+}
+
+ return error;
+  }
+
+
   const register = (evt) => {
     evt.preventDefault();
-    const { name, email, designation, department, manager, password } = user;
+    //const { name, email, designation, department, manager, password } = user;
 
-    if (
-      isEmpty(name) ||
-      isEmpty(email) ||
-      isEmpty(designation) ||
-      isEmpty(department) ||
-      isEmpty(password)
-    ) {
-      setUser({
-        ...user,
-        errormsg: "All fields are required",
-      });
-      alert("All fields are required");
-    } else if (!isEmail(email)) {
-      setUser({
-        ...user,
-        errormsg: "Invalid Email",
-      });
-      alert("Invalid Email");
-    } else {
-      const { name, email, designation, department, manager, password } = user;
 
-      axios.post("http://localhost:9009/employees", user).then((res) => {
-        alert(res.data.message);
-        // //            setLoginUser(res.data.user)
-      });
-      history.push("/admin");
-    }
+    // if (
+    //   isEmpty(name) ||
+    //   isEmpty(email) ||
+    //   isEmpty(designation) ||
+    //   isEmpty(department) ||
+    //   isEmpty(password)
+    // ) {
+    //   setUser({
+    //     ...user,
+    //     errormsg: "All fields are required",
+    //   });
+    //   alert("All fields are required");
+    // } else if (!isEmail(email)) {
+    //   setUser({
+    //     ...user,
+    //     errormsg: "Invalid Email",
+    //   });
+    //   alert("Invalid Email");
+    // }
+
+    setFormError(validate(user));
+
+    setisSubmit(true);
+    // if(user){
+    
+    // }
+    // else {
+    //   const { name, email, designation, department, manager, password } = user;
+
+    //   axios.post("http://localhost:9009/employees", user).then((res) => {
+    //     alert(res.data.message);
+    //     // //            setLoginUser(res.data.user)
+    //   });
+    //   history.push("/admin");
+    // }
   };
 
   return (
     <div className="setup">
-      <div>
-        <p>{user.errormsg && ShowErrorMessage(user.errormsg)}</p>
-      </div>
 
       <Container className="SetupForm">
         <Form>
@@ -115,6 +163,7 @@ const Register = () => {
               />
             </Col>
           </Form.Group>
+          <p style={{color:"red", marginTop:"2%",marginLeft:"30%"}}>{formError.name}</p>
 
           <Form.Group as={Row} className="mb-2" controlId="formPlaintextEmail">
             <Form.Label column sm="4">
@@ -130,6 +179,7 @@ const Register = () => {
               />
             </Col>
           </Form.Group>
+          <p style={{color:"red", marginTop:"2%",marginLeft:"30%"}}>{formError.email}</p>
           <Form.Group as={Row} className="mb-2">
             <Form.Label column sm="4">
               Designation
@@ -217,6 +267,7 @@ const Register = () => {
               />
             </Col>
           </Form.Group>
+          <p style={{color:"red", marginTop:"2%",marginLeft:"30%"}}>{formError.password}</p>
           <FormButtons>
             <div className="d-grid gap-2 mb-2">
               <Button className="mb-1" size="lg" variant="dark" onClick={close}>
