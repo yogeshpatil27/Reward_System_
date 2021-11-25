@@ -168,14 +168,6 @@ const update = () => {
             </>
           )}
 
-
-
-
-
-
-
-
-
           <Form.Group as={Row}  className="mb-2">
             <Form.Label column sm="4">Department</Form.Label>
             <Col sm="8">
@@ -211,11 +203,6 @@ const update = () => {
     </FormButtons>
      
         </Form>
-        
-
-
-             
-       
         </Container>
 
         
