@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Register from "./components/Admin Dashboard/register";
 import Manager from "./components/Manager Dashboard/manager";
 import Admin from "./components/Admin Dashboard/admin";
-import { isAuthenticated } from "./Authen";
 import Employee from "./components/All Employee Dashboard/Employee";
 import PageNotFound from "./components/PageNotFount/PageNotFound";
 import EmployeeDetails from "./components/Admin Dashboard/EmployeeDetails";
@@ -22,7 +21,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route exact path="/Admin" component={Admin} />
+            <Route path="/Admin" component={Admin} />
             <Route path="/Register" component={Register} />
             <Route path="/Manager" component={Manager} />
             <Route path="/Employee" component={Employee} />

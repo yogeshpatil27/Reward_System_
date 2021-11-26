@@ -1,13 +1,13 @@
 import React, { useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import "./login.css";
-import { getCookie, setCookies } from "../../cookies";
-import { getLocalStorage, setLocalStorage } from "../../localstorage";
+//import { getCookie, setCookies } from "../../cookies";
+//import { getLocalStorage, setLocalStorage } from "../../localstorage";
 import {setAuthentification,isAuthenticated} from "../../Authen"
-
+import { axiosInstance } from '../../config.js';
 
 const Login = () => {
   const history = useHistory();
@@ -36,7 +36,7 @@ useEffect(() => {
        // console.log("I am a Employee");
         history.push('/Employee')
       }  
-}, [])
+}, [history])
 
 
 
@@ -69,11 +69,11 @@ useEffect(() => {
   const login = async (evt) => {
     evt.preventDefault();
    
-    await axios.post("http://localhost:9009/login", user).then((res) => {
+    await axiosInstance.post("/login", user).then((res) => {
          //alert(res.data.message);
         setAuthentification(res?.data?.token, res?.data?.user);
 
-        if (isAuthenticated() && isAuthenticated().designation == "Admin") {
+        if (isAuthenticated() && isAuthenticated().designation === "Admin") {
           history.push('/admin')
         } else if (
           isAuthenticated() &&

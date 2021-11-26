@@ -7,8 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //import Button from "@restart/ui/esm/Button";
 import { isAuthenticated } from "../../Authen";
 import styled from 'styled-components';
-import Register from "../Admin Dashboard/register";
-import Winners from "../winnersList/winners";
+//import Register from "../Admin Dashboard/register";
+//import Winners from "../winnersList/winners";
 import { getLocalStorage } from "../../localstorage";
 
 const AdminHeader = () => {

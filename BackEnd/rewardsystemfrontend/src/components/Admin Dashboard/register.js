@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ShowErrorMessage } from "../helper/helper";
+//import { ShowErrorMessage } from "../helper/helper";
 import "./register.css";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import Validator from "validator";
+//import axios from "axios";
+//import Validator from "validator";
 import isEmail from "validator/es/lib/isEmail";
 import isEmpty from "validator/es/lib/isEmpty";
 import isStrongPassword from "validator/es/lib/isStrongPassword";
-
-import Admin from "./admin";
+import { axiosInstance } from '../../config.js';
+//import Admin from "./admin";
 import { isAuthenticated } from "../../Authen";
 import styled from "styled-components";
 
@@ -31,9 +31,9 @@ const Register = () => {
   }, [history]);
 
   useEffect(() => {
-    axios.get("http://localhost:9009/manage").then((res) => {
+    axiosInstance.get("/manage").then((res) => {
       setManagerData(res.data);
-      console.log(ManagerList);
+      //console.log(ManagerList);
     });
   }, []);
 
@@ -71,14 +71,14 @@ useEffect(()=>{
 if(Object.keys(formError).length===0&&isSubmit){
   const { name, email, designation, department, manager, password } = user;
 
-  axios.post("http://localhost:9009/employees", user).then((res) => {
+  axiosInstance.post("/employees", user).then((res) => {
     alert(res.data.message);
     // //            setLoginUser(res.data.user)
   });
   history.push("/admin");
 }
 
-},[formError])
+},[formError,history,isSubmit,user])
 
 
   const validate =(values)=>{

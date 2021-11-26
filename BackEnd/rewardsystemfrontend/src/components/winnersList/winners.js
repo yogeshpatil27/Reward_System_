@@ -1,8 +1,8 @@
-import axios from 'axios';
+//import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import AdminHeader from '../Header/AdminHeader'
-
-import { Table, Container, Button } from "react-bootstrap";
+import { axiosInstance } from '../../config.js';
+import { Table, Container } from "react-bootstrap";
 import moment from 'moment';
 const Winners = () => {
 
@@ -16,7 +16,7 @@ const Winners = () => {
 
 
     const GetAllwinners=async()=>{
- const res = await axios.get(`http://localhost:9009/winners`);
+ const res = await axiosInstance.get(`http://localhost:9009/winners`);
 setWinnersDetails(res.data);
     }
 
