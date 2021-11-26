@@ -25,7 +25,7 @@ const WinnerForm = (props) => {
   const history = useHistory();
   const { id } = useParams();
   const [Month, setAwardMonth] = useState([]);
-  const [getNonimations, setNominations] = useState({});
+  const [getNonimations, setNominations] = useState([]);
   const [values, setValues] = useState();
   //const [winnerDetails, setWinnersDetails]=useState([]);
   const currentDate = new Date();
@@ -174,6 +174,7 @@ const monthSelector=(date)=>{
                         disableFuture={true}
                         helperText="Start from year selection"
                         value={selectedDate}
+                       
                         onChange={handleDateChange}
                         minDate={moment('2012-09')}
                         maxDate={moment()}

@@ -27,7 +27,7 @@
 }
 
 .heading{
-  position: absolute;
+  position: relative;
  top: 20%;
  font-weight: bold;
  }
