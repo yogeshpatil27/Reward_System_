@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import AdminHeader from "../Header/AdminHeader";
 import { useHistory } from "react-router";
 import { isAuthenticated } from "../../Authen";
-import axios from "axios";
-import { Table, Container, Button } from "react-bootstrap";
-import BootstrapTable, { BootstrapButton } from "react-bootstrap-table-next";
+import { Container } from "react-bootstrap";
+import BootstrapTable from "react-bootstrap-table-next";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
 import "./EmployeeDetails.css";
 import { Link } from "react-router-dom";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import { axiosInstance } from '../../config.js';
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
-import cellEditFactory from "react-bootstrap-table2-editor";
-import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
 const EmployeeDetails = () => {
   const history = useHistory();
-
+ //Search Functionloity
+ const [search, setSearch] = useState("");
+ const [empDetails, setEmpDetail] = useState([]);
+ 
   useEffect(() => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
       console.log("I am a Admin");
@@ -27,7 +27,7 @@ const EmployeeDetails = () => {
     }
   }, [history]);
 
-  const [empDetails, setEmpDetail] = useState([]);
+
 
   //declaired Edit Buttons
   const editButton = (cell, row) => {
@@ -47,9 +47,7 @@ const EmployeeDetails = () => {
           <button  style={{marginLeft:"12px",outline:"none", border:"none"}} className="Delete" onClick={() => DeleteEmployee(row._id)}>
           <ion-icon name="trash"></ion-icon>
           </button>
-        
-
-
+      
         </div>
       );
     }
@@ -60,7 +58,7 @@ const EmployeeDetails = () => {
   //Delete Employee Fuctions
   const DeleteEmployee = async (id) => {
     try {
-      const res = await axios.delete(`http://localhost:9009/employees/${id}`);
+      const res = await axiosInstance.delete(`/employees/${id}`);
       console.log(res);
       getEmp();
     } catch (err) {
@@ -94,7 +92,7 @@ const EmployeeDetails = () => {
 
   const getEmp = async () => {
     try {
-      const res = await axios.get(`http://localhost:9009/employees/details/employe/mangersDetails`);
+      const res = await axiosInstance.get(`/employees/details/employe/mangersDetails`);
       //  console.log(res.data);
       setEmpDetail(res.data);
     } catch (err) {
@@ -123,8 +121,7 @@ const EmployeeDetails = () => {
     },
   });
 
-  //Search Functionloity
-  const [search, setSearch] = useState("");
+ 
 
   const SearchRows = (rows) => {
     return rows.filter(

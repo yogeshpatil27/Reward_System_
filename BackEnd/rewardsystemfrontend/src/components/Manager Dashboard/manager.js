@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminHeader from '../Header/AdminHeader'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { isAuthenticated } from '../../Authen'
 import { useHistory } from 'react-router'
 import Feeds from '../Feed/feeds'

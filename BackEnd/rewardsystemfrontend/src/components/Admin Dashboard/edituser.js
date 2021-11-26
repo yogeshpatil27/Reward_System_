@@ -6,8 +6,7 @@ import React, { useState, useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./edituser.css";
 import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
-
+import { axiosInstance } from '../../config.js';
 
 const Edituser = (props) => {
   
@@ -22,7 +21,7 @@ const history = useHistory();
  
   const [ManagerList, setManagerData] = useState([]);
 
-  useEffect(() => {
+  useEffect((id) => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
         history.push("/edit/"+id);
       } else{
@@ -31,9 +30,9 @@ const history = useHistory();
 }, [history])
 
 useEffect(() => {
-  axios.get("http://localhost:9009/manage").then((res) => {
+  axiosInstance.get("/manage").then((res) => {
     setManagerData(res.data);
-    console.log(ManagerList);
+  
   });
 }, []);
 
@@ -59,7 +58,7 @@ const close=()=>{
 } 
 
   useEffect(() => {
-    axios.get("http://localhost:9009/employees/"+id)
+    axiosInstance.get("/employees/"+id)
         .then( res => {
             console.log("res", res);
             setEmployee(res?.data?.[0])
@@ -72,10 +71,10 @@ const close=()=>{
 const update = () => {
     const { name, email, designation, department, password } = empDetails
     if( name && email && password ){
-        axios.put("http://localhost:9009/employees", empDetails)
+      axiosInstance.put("/employees", empDetails)
         .then( res => {
            console.log("update res", res);
-           if(res?.status == 200) {
+           if(res?.status === 200) {
             alert('User updated')
             history.push("/EmployeeDetails");
            } else { alert('user not updated')}

@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import { Grid, Container } from "@material-ui/core";
 import Controls from "./controls/Controls";
-import { useForm, Form } from "./useForm";
+import { Form } from "./useForm";
 import { useHistory, useParams } from "react-router-dom";
-import styled from "styled-components";
+//import styled from "styled-components";
 import "../Admin Dashboard/register.css";
-import axios from "axios";
+//import axios from "axios";
 import { getLocalStorage } from "../../localstorage";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import isEmpty from "validator/es/lib/isEmpty";
+//import isEmpty from "validator/es/lib/isEmpty";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import moment from 'moment';
-
+import { axiosInstance } from '../../config.js';
 
 const NominateForm = (props) => {
   const [CriteriaSelected, setCriteriaSelected] = useState([]);
@@ -44,8 +44,8 @@ const NominateForm = (props) => {
       setSelectedDate(date);
     };
 
-  useEffect(async () => {
-    await axios.get("http://localhost:9009/employees/" + id).then((res) => {
+  useEffect( () => {
+     axiosInstance.get("/employees/" + id).then((res) => {
       // console.log("res", res);
       setEmpDetails(res?.data?.[0]);
     });
@@ -86,7 +86,7 @@ const NominateForm = (props) => {
     e.preventDefault();
     console.log(initialFValues);
 
-   await axios.post("http://localhost:9009/nominations", initialFValues).then((res) => {
+   await axiosInstance.post("/nominations", initialFValues).then((res) => {
         alert(res.data.message);
         // //            setLoginUser(res.data.user)
       });

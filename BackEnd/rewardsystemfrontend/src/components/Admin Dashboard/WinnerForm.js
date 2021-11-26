@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
-import { alpha } from "@material-ui/core/styles";
 import { Grid, Container } from "@material-ui/core";
 import Controls from "../Manager Dashboard/controls/Controls";
-import { useForm, Form } from "../Manager Dashboard/useForm";
+import { Form } from "../Manager Dashboard/useForm";
 import { useHistory, useParams } from "react-router-dom";
-import styled from "styled-components";
+//import styled from "styled-components";
 import "../Admin Dashboard/register.css";
-import axios from "axios";
-import { getLocalStorage } from "../../localstorage";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import isEmpty from "validator/es/lib/isEmpty";
+// import { getLocalStorage } from "../../localstorage";
+// import Input from "@material-ui/core/Input";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import Select from "@material-ui/core/Select";
+// import isEmpty from "validator/es/lib/isEmpty";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import "date-fns";
 import moment from 'moment';
-
+import { axiosInstance } from '../../config.js';
 
 const WinnerForm = (props) => {
   const history = useHistory();
@@ -47,20 +45,18 @@ const WinnerForm = (props) => {
   };
 
   useEffect(() => {
-    getNominationsbyID();
+     axiosInstance.get("/nominations/" + id).then((res) => {
+      setNominations(res?.data?.[0]);
+    });
     GetAllwinners();
   }, []);
 
-  const getNominationsbyID = async () => {
-    await axios.get("http://localhost:9009/nominations/" + id).then((res) => {
-      setNominations(res?.data?.[0]);
-    });
-  };
+
 
   const [winnerDetails, setWinnersDetails]=useState([]);
 
   const GetAllwinners=async()=>{
-    const res = await axios.get(`http://localhost:9009/winners`); 
+    const res = await axiosInstance.get(`/winners`); 
     console.log("This winners data I want to print",res.data); 
 
     let WinnerMonths=res.data.map(a=>a.Months)
@@ -107,7 +103,7 @@ const monthSelector=(date)=>{
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Values are", initialFValues);
-      await axios.post("http://localhost:9009/winners", initialFValues).then((res) => {
+      await axiosInstance.post("/winners", initialFValues).then((res) => {
         alert(res.data.message);
     // //            setLoginUser(res.data.user)
       });

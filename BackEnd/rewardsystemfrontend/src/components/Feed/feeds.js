@@ -1,23 +1,23 @@
 import React from "react";
 import "./feeds.css";
-import axios from "axios";
+//import axios from "axios";
 import { useEffect, useState } from "react";
 import { isAuthenticated } from "../../Authen";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import moment from 'moment';
-
+import { axiosInstance } from '../../config.js';
 const Feeds = (props) => {
   const [getFeeds, setFeeds] = useState([]);
   const history = useHistory();
   //  const [like,setLike]=useState([])
 
-  useEffect(async () => {
+  useEffect(() => {
     refreshLikes();
   }, []);
 
-  const refreshLikes = async () => {
-    const allFeed = await axios.get(`http://localhost:9009/nominations`);
+  const refreshLikes = () => {
+    const allFeed =  axiosInstance.get(`/nominations`);
     if (!allFeed) {
       alert("No data in feed");
     } else {
@@ -27,8 +27,8 @@ const Feeds = (props) => {
 
   const likeButton = async (id) => {
     const like = isAuthenticated()._id;
-    await axios
-      .put("http://localhost:9009/nominations/" + id, { like })
+    await axiosInstance
+      .put("/nominations/" + id, { like })
       .then((res) => {
         refreshLikes();
       });
@@ -36,8 +36,8 @@ const Feeds = (props) => {
 
   const dislikeButton = async (id) => {
     const dislike = isAuthenticated()._id;
-    await axios
-      .put("http://localhost:9009/nominations/dislike/" + id, { dislike })
+    await axiosInstance
+      .put("/nominations/dislike/" + id, { dislike })
       .then((res) => {
         refreshLikes();
       });

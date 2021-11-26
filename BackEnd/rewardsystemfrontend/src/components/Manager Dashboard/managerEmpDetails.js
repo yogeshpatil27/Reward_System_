@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Table, Container, Button } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import AdminHeader from "../Header/AdminHeader";
 import { useHistory } from "react-router";
 import { getLocalStorage } from "../../localstorage";
-import axios from "axios";
+//import axios from "axios";
 import { Link } from "react-router-dom";
+import { axiosInstance } from '../../config.js';
 
 const ManagerEmpDetails = () => {
   const history = useHistory();
@@ -17,8 +18,8 @@ const ManagerEmpDetails = () => {
 
 const setManagersDetails =async()=>{
   const loggeduser = getLocalStorage("user");
-  const res = await axios.get(
-    `http://localhost:9009/employees/mangersDetails/${loggeduser._id}`
+  const res = await axiosInstance.get(
+    `/employees/mangersDetails/${loggeduser._id}`
   );
   setManagerEmp(res.data);
 }
