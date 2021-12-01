@@ -1,0 +1,106 @@
+body{
+  background-image: linear-gradient(to bottom right,#3f51b5, #acb6e5,#86fde8);
+    background-size:cover;
+    background-attachment: fixed;
+}
+
+
+
+.card:nth-child(n){
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60%;
+
+    margin: 100px auto;
+    height: auto; 
+    align-items: center;
+    border-radius: 10px;
+    background-image: linear-gradient(to bottom right, #1D976C,#93F9B9);
+    color:rgb(10, 10, 10);
+  }
+
+  .card:nth-child(3n){
+    
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60%;
+    margin: 100px auto;
+    height: auto;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, #EDE574,#E1F5C4);
+    color:rgb(10, 10, 10);
+  }
+
+  .card:nth-child(4n){
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60%;
+    margin: 100px auto;
+    height: auto;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, #BBD2C5,#536976);
+    color:rgb(10, 10, 10);
+  }
+
+  .card:nth-child(5n){
+  
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 60%;
+    margin: 100px auto;
+    height: auto;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, #DCE35B,#45B649);
+    color:rgb(10, 10, 10);
+  }
+
+  .card:nth-child(n) {
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  
+  .buttons{
+     margin-bottom: 10px;
+  }
+
+  .votes{
+    margin-left: 10px;
+    text-align: center;
+    padding:5px 6px;
+    background-color:#ffffff;
+    
+    /* color: #ffffff; */
+    border-radius: 3px;
+    border:1px solid #ffffff ;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+  .likeButton{
+      margin-left: 10px;
+      text-align: center;
+      padding:5px 6px;
+      background-color:#3f51b5;
+      color: #ffffff;
+      border-radius: 3px;
+      border:1px solid #3f51b5 ;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .likeButton:hover{
+    background-color:#1f3bdb;
+  }
+ 
+
+  .buttonheading{
+      margin-left: 10px;
+      
+  }
+  .icon{
+margin-top: 3px;
+  }
+  .container {
+    padding: 2px 16px;
+    margin-top: 14px;
+  }

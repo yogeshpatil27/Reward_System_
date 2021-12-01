@@ -1,0 +1,30 @@
+.setup {
+    /* background: #282c34; */
+    background-image: linear-gradient(to bottom right, #acb6e5,#86fde8);
+    min-height: 100vh;
+    display:flex;
+    flex-direction:center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+.winner{
+    background-color:#ffffff;
+    box-shadow: 10px 10px 5px rgba(163, 158, 158,0.4);
+    border-radius: 15px;
+    width:90vh;
+    height:80vh; 
+    margin-top: 2vh;
+   margin: 20,20,20,20;
+   text-align: center;
+   justify-content: center;
+   align-items: center;
+   display:flex;
+   flex-direction: column;
+   color: black;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+

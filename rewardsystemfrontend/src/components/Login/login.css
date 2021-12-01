@@ -1,0 +1,54 @@
+.setupLogin {
+  
+  background-image: linear-gradient(to bottom right,#3f51b5, #acb6e5,#86fde8);
+ min-height: 100vh;
+ display:flex;
+ flex-direction:column;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+
+ 
+}
+
+
+
+
+
+
+
+
+.SetupFormLogin{
+ background-color:#fdfdfd;
+ width:70vh;
+ height:80vh; 
+ margin-top: 2vh;
+margin: 20,20,20,20;
+text-align: center;
+justify-content: center;
+align-items: center;
+display:flex;
+flex-direction: column;
+border-radius: 10px;
+box-shadow: 10px 10px 5px rgb(78, 78, 78);
+
+}
+
+.SetupFormLogin h2{
+margin-bottom: 50px;
+font-weight: bold;
+}
+
+.left{
+  display: flex;
+  
+}
+
+.link{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  
+}
+
+

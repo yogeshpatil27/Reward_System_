@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "heroku-postbuild": "cd rewardsystemfrontend && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^6.0.12",
-    "nodemon": "^2.0.15",
-    "path": "^0.12.7"
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
     "morgan": "^1.10.0"

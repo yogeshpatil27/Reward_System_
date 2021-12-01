@@ -10,9 +10,6 @@ import employeesRoutes from './routes/employees.js'
 import nominationsRoutes from './routes/nominations.js'
 import bodyParser from 'body-parser';
 import winnersRoutes from './routes/winners.js'
-import path from 'path';
-
-const __dirname = path.resolve()
 const Schema=mongoose.Schema;
 
 const app = express();
@@ -26,16 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 
-app.use(express.static(path.join(__dirname, "/rewardsystemfrontend/build")));
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/rewardsystemfrontend/build', 'index.html'));
-});
-
-
-
-app.listen(process.env.PORT || 9009, () => {
-  console.log(`Apllication started at port`);
+const PORT= process.env.PORT || 9009 
+app.listen(PORT, () => {
+  console.log(`Apllication started at port ${PORT}`);
 });
 
 //Doing Connection
@@ -48,7 +38,7 @@ mongoose
     console.log("DB connected");
   })
   .catch((err) => {
-    console.log("DB is not connected:",err);
+    console.log("DB is not connected",err);
   });
 
 //Schema Defination
@@ -110,6 +100,12 @@ app.get("/manage",async (req, res)=>{
 //     }
 //   })
 // })
+
+
+
+
+
+
 
 
   //get all emp list
