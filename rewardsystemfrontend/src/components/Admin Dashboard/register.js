@@ -69,9 +69,11 @@ if(Object.keys(formError).length===0&&isSubmit){
   axios.post("http://localhost:9009/employees", user).then((res) => {
     
   if(res.data.success===true){
-  setSuccessMessage(res.data.message);}
+  setSuccessMessage(res.data.message);
+setemailError("")}
   else if(res.data.success===false){
     setemailError(res.data.message);
+    setSuccessMessage("")
   }
     //alert(res.data.message)
     //setLoginUser(res.data.user)
@@ -103,6 +105,10 @@ else if(!isStrongPassword(values.password)){
   error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
 }
 
+// if(isEmpty(values.manager)){
+//   error.manager="Please select manager"
+// }
+
  return error;
   }
 
@@ -111,6 +117,7 @@ else if(!isStrongPassword(values.password)){
     evt.preventDefault();
     setFormError(validate(user, successMessage));
     setisSubmit(true);
+
   };
 
   return (
@@ -209,6 +216,9 @@ else if(!isStrongPassword(values.password)){
                         );
                       })}
                     </Form.Control>
+                    {/* <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
+              {formError.manager}
+            </p> */}
                   </Col>
                 </Form.Group>
               </>
