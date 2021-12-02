@@ -120,13 +120,13 @@ const AdminHeader = () => {
             <Wrapper>
               <Left>
                 <img src='/assets/logo.jpg' alt ="Rewards" className='image' />
-                <Feed onClick={()=>{ history.push("/Admin")}}>Feed</Feed>
-                <RegisterempLink onClick={()=>{  history.push("/Register")}}>Register Employee</RegisterempLink>
-                <EmployeeDetails onClick={()=>{  history.push("/EmployeeDetails")}}>Employee Details</EmployeeDetails>
+                <Feed onClick={()=>{ history.push("/admin")}}>Feed</Feed>
+                <RegisterempLink onClick={()=>{  history.push("/register")}}>Register Employee</RegisterempLink>
+                <EmployeeDetails onClick={()=>{  history.push("/employeedetails")}}>Employee Details</EmployeeDetails>
                 <WinnersList onClick={()=>{  history.push("/winners")}}>Winners List</WinnersList>
               </Left>
               <Right>
-              <UserName>Welcome  {loggeduser.name}</UserName>
+              <UserName>Welcome: {loggeduser.name} ({loggeduser.designation})</UserName>
               <LogoutButton onClick={HandleLogout}>Logout</LogoutButton>
           </Right>
             </Wrapper>
@@ -137,12 +137,14 @@ const AdminHeader = () => {
 <Container>
             <Wrapper>
               <Left>
-                <Feed onClick={()=>{ history.push("/Manager")}}>Award System</Feed>
-                <EmployeeDetails onClick={()=>{  history.push("/ManagersEmpDetails")}}>Employee Details</EmployeeDetails>
+              <img src='/assets/logo.jpg' alt ="Rewards" className='image' />
+            
+                <Feed onClick={()=>{ history.push("/manager")}}>Feed</Feed>
+                <EmployeeDetails onClick={()=>{  history.push("/managersempdetails")}}>Employee Details</EmployeeDetails>
                 <WinnersList onClick={()=>{  history.push("/winners")}}>Winners List</WinnersList>
               </Left>
               <Right>
-              <UserName>Welcome  {loggeduser.name}</UserName>
+              <UserName>Welcome: {loggeduser.name} ({loggeduser.designation})</UserName>
               <LogoutButton onClick={HandleLogout}>Logout</LogoutButton>
           </Right>
             </Wrapper>
@@ -157,11 +159,12 @@ isAuthenticated() && (isAuthenticated().designation === "Employee"||isAuthentica
 <Container>
             <Wrapper>
               <Left>
-                <Feed onClick={()=>{history.push("/Employee")}}>Award System</Feed>
+              <img src='/assets/logo.jpg' alt ="Rewards" className='image' />
+                <Feed onClick={()=>{history.push("/employee")}}>Feed</Feed>
                 <WinnersList onClick={()=>{history.push("/winners")}}>Winners List</WinnersList>
               </Left>
               <Right>
-              <UserName>Welcome  {loggeduser.name}</UserName>
+              <UserName>Welcome: {loggeduser.name} ({loggeduser.designation})</UserName>
               <LogoutButton onClick={HandleLogout}>Logout</LogoutButton>
           </Right>
             </Wrapper>

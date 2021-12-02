@@ -123,10 +123,10 @@ app.get("/manage",async (req, res)=>{
     try {
       if (!user) {
       //  console.log("This is in if response", user);
-        res.send({message: "Email not registered" });
+        res.send({message: "Please enter valid credentials" });
       } else if (!isMatch) {
      //   console.log("This is in else if response", user);
-        res.send({ message: "Wrong Password" });
+        res.send({ message: "Please enter valid credentials" });
       } else {
         const payload = {
           user: {

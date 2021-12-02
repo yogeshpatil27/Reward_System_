@@ -21,7 +21,7 @@ const EmployeeDetails = () => {
   useEffect(() => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
       console.log("I am a Admin");
-      history.push("/EmployeeDetails");
+      history.push("/employeedetails");
     } else {
       history.push("/");
     }

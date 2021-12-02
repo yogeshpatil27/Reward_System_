@@ -11,7 +11,7 @@ import Controls from '../Manager Dashboard/controls/Controls';
 import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 import Link from '@mui/material/Link';
-
+import isEmpty from "validator/es/lib/isEmpty";
 
 const Login = () => {
 
@@ -20,6 +20,9 @@ const Login = () => {
   
 `;
 
+
+const [formError, setFormError]= useState({});
+const [isSubmit, setisSubmit]=useState(false);
   const history = useHistory();
   // const context = useContext(contextValue);
 
@@ -49,6 +52,23 @@ useEffect(() => {
 }, [])
 
 
+const validate =(values, message)=>{
+  const error = {};
+  
+  
+  if(isEmpty(values.email)){
+    error.email="Please Enter Email"
+  } 
+ else if(message){
+  error.message=`${message}`
+  }
+  if(!values.password){
+    error.password="Please enter password";
+  }
+  
+   return error;
+    }
+
 
   const [user, setUser] = useState({
     email: "",
@@ -63,24 +83,15 @@ useEffect(() => {
     });
   };
 
-  //  const setAuthentification = (token, user) => {
-  //   setCookies("token", token);
-  //   setLocalStorage("user", user);
-  // };
-
-  // const isAuthenticated = () => {
-  //   if (getCookie("token") && getLocalStorage("user")) {
-  //     return getLocalStorage("user");
-  //   } else {
-  //     return false;
-  //   }
-  // };
+ 
 
   const login = async (evt) => {
     evt.preventDefault();
    
     await axios.post("http://localhost:9009/login", user).then((res) => {
          //alert(res.data.message);
+         setFormError(validate(user,res.data.message));
+         setisSubmit(true);
         setAuthentification(res?.data?.token, res?.data?.user);
 
         if (isAuthenticated() && isAuthenticated().designation == "Admin") {
@@ -89,19 +100,19 @@ useEffect(() => {
           isAuthenticated() &&
           isAuthenticated().designation === "Manager"
         ) {
-          history.push('/Manager')
+          history.push('/manager')
         } else if (
           isAuthenticated() &&
           isAuthenticated().designation === "Team Lead"
         ) {
           console.log("I am Team Lead");
-          history.push('/Employee')
+          history.push('/employee')
         } else if (
           isAuthenticated() &&
           isAuthenticated().designation === "Employee"
         ) {
           console.log("I am a Employee");
-          history.push('/Employee')
+          history.push('/employee')
         }
       })
       .catch((err) => {
@@ -130,7 +141,7 @@ useEffect(() => {
                 onChange={handleChange}
                 placeholder="Enter your Email"
               />
-            </Col>
+            </Col>  <p style={{color:"red",marginLeft:"30%"}}>{formError.email}</p>
           </Form.Group>
 
           <Form.Group
@@ -149,8 +160,8 @@ useEffect(() => {
                 onChange={handleChange}
                 placeholder="Enter your Password"
               />
-            </Col>
-          </Form.Group>
+            </Col> <p style={{color:"red",marginLeft:"30%"}}>{formError.password}</p>
+          </Form.Group> <p style={{color:"red",marginLeft:"30%"}}>{formError.message}</p>
 
           <FormButtons >
           <div className="button">

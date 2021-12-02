@@ -58,13 +58,21 @@ router.get("/employe/mangersDetails", async (req, res) => {
 router.put("/", async (req, res) => {
   const user = req.body;
   const editUser = new Employee(user);
+  
+  Employee.findOne({ email: user.email }, async (err, result) => {
+    if (result) {res.send({success: false, message:"Email already registered"});
+    }});
+
   try {
     await Employee.updateOne({ _id: user._id }, editUser);
-    res.send(editUser);
+    res.send({success: true, message:"User updated successfully",editUser});
   } catch (error) {
     res.json({ message: error.message });
   }
 });
+
+
+
 
 //Register New Employee for Admin Register Page
 router.post("/", async (req, res) => {
@@ -72,7 +80,10 @@ router.post("/", async (req, res) => {
 
   Employee.findOne({ email: email }, async (err, user) => {
     if (user) {
-      res.send({ message: "User already registerd" });
+      return res.status(208).json({
+          success: false,
+          message: "Email already registered",
+        });
     } else {
       if (!manager) {
         const Emp = new Employee({
@@ -88,7 +99,7 @@ router.post("/", async (req, res) => {
 
         Emp.save()
           .then(() => {
-            res.send({ message: "SucessFully Register" });
+            res.status(200).json({ success: true,  message: "Successfully Registered",});
           })
           .catch((e) => {
             console.log("Error Message while Saving in DB: " + e);
