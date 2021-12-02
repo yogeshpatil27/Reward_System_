@@ -22,7 +22,6 @@ const Register = () => {
   const history = useHistory();
   const [emailError, setemailError] = useState();
   const [successMessage, setSuccessMessage] = useState();
-  const [formError, setFormError] = useState({});
   const [isSubmit, setisSubmit] = useState(true);
   const [ManagerList, setManagerData] = useState([]);
 
@@ -61,50 +60,57 @@ const Register = () => {
   const close = () => {
     history.push("/admin");
   };
+  const [formError, setFormError]= useState({});
 
-  const validate = (values) => {
-    const error = {};
+useEffect(()=>{
+if(Object.keys(formError).length===0&&isSubmit){
+  const { name, email, designation, department, manager, password } = user;
 
-    if (isEmpty(values.name)) {
-      error.name = "Please enter name";
-    }
-    if (isEmpty(values.email)) {
-      error.email = "Please enter email";
-    } else if (!isEmail(values.email)) {
-      error.email = "Please enter valid email address";
-    }
-    if (!values.password) {
-      error.password = "Please enter password";
-    } else if (!isStrongPassword(values.password)) {
-      error.password =
-        "Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters";
-    }
-    return error;
-  };
+  axios.post("http://localhost:9009/employees", user).then((res) => {
+    
+  if(res.data.success===true){
+  setSuccessMessage(res.data.message);}
+  else if(res.data.success===false){
+    setemailError(res.data.message);
+  }
+    //alert(res.data.message)
+    //setLoginUser(res.data.user)
+  });
+ // history.push("/admin");
+}
+
+},[formError])
+
+
+const validate =(values , message)=>{
+const error = {};
+if(isEmpty(values.name)){
+  error.name="Please enter name"
+} 
+if(isEmpty(values.email)){
+  error.email="Please enter email"
+} 
+else if(!isEmail(values.email)){
+error.email="Please enter valid email address"
+}
+else if(message){
+  error.email=`${message}`
+  }
+if(!values.password){
+  error.password="Please enter password";
+}
+else if(!isStrongPassword(values.password)){
+  error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
+}
+
+ return error;
+  }
+
 
   const register = (evt) => {
     evt.preventDefault();
-    
-    if(isSubmit===true){
-      setFormError(validate(user));
-      ///setisSubmit(false)
-    }
-    if(Object.keys(formError).length===0 && (isSubmit)){
-      setFormError(validate(user));
-        const { name, email, designation, department, manager, password } = user;
-
-    axios.post("http://localhost:9009/employees", user).then((res) => {
-      //console.log("this is to check status of message",res?.data?.success)
-      if (res?.data?.success === false) {
-        setemailError(res?.data?.message);
-      }
-     setFormError(validate(user));
-      if (res.data.success === true) {
-        setSuccessMessage(res.data.message);
-        setemailError("");
-      }
-      setisSubmit(true);
-    });}
+    setFormError(validate(user, successMessage));
+    setisSubmit(true);
   };
 
   return (
