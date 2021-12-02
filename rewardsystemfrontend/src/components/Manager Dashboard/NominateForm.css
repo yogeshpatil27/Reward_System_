@@ -1,0 +1,35 @@
+.popup {
+    background-image: linear-gradient(to bottom right, #acb6e5,#86fde8);
+    min-height: 100vh;
+    display:flex;
+    flex-direction:center;
+    align-items: flex-start;
+    justify-content: center;
+    color: white;
+    text-align: left;
+  }
+
+.nominate{
+    background-color:#ffffff;
+    box-shadow: 10px 10px 5px rgba(163, 158, 158,0.4);
+    border-radius: 15px;
+    width:90vh;
+    height:95vh; 
+    margin-top: 2vh;
+   margin: 20,20,20,20;
+   text-align: flex-start;
+   justify-content: center;
+   align-items: center;
+   display:flex;
+   flex-direction: column;
+   color: black;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.NominateHeadingButton{
+   padding: 20px;
+    text-align: center;
+    align-items: center;
+}

@@ -2,21 +2,47 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import { Grid, Container } from "@material-ui/core";
 import Controls from "./controls/Controls";
-import { useForm, Form } from "./useForm";
+import { useForm} from "./useForm";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
-import "../Admin Dashboard/register.css";
+import './NominateForm.css';
 import axios from "axios";
 import { getLocalStorage } from "../../localstorage";
 import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import Select from "@material-ui/core/Select";
 import isEmpty from "validator/es/lib/isEmpty";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import moment from 'moment';
+import {Form, Row, Col } from "react-bootstrap";
+
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+// import TextField from '@mui/material/TextField';
+import TextField from '@material-ui/core/TextField';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+
+
+
 
 
 const NominateForm = (props) => {
@@ -30,10 +56,10 @@ const NominateForm = (props) => {
 
   const criterias = [
     "Client appreciation",
-    "Team Player",
     "Timely leaves",
     "Added work to company",
     "Asset for company",
+    "Team Player",
   ];
 
 
@@ -98,139 +124,186 @@ const NominateForm = (props) => {
   };
 
   return (
-    <>
-      {/*<Container className="SetupForm">*/}
-        <Form onSubmit={handleSubmit}>
-        <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          p: 1,
-          m: 1,
-          bgcolor: 'background.paper',
-          borderRadius:"10px",
-          boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-          width: '50%', 
-          margin:'40px auto',
-        }}
-      >
-      <h1>Nomination Form</h1>
-              <Controls.Input
-                name="fullName"
-                label="Full Name"
-                value={getEmDetails.name}
-                onChange={handleInputChange}
-                // error={errors.fullName}
-              />
-              <Controls.Input
-                label="Designation"
-                name="designation"
-                value={getEmDetails.designation}
-                onChange={handleInputChange}
-                // error={errors.designation}
-              />
-              <Controls.Input
-                label="NominatedBy"
-                name="nominatedBy"
-                value={loggeduser.name}
-                onChange={handleInputChange}
-                // error={errors.nominatedBy}
-              />
+    <Box
+    sx={{
+      '& .MuiTextField-root': { width: '25ch' },
+    }}
+    noValidate
+    autoComplete="off"
+  >
+        <div className="popup">
+       
+    <div className="nominate"  >
+    <Form onSubmit={handleSubmit}>
+    <h2 className='NominateHeadingButton'>Nomination Form</h2>
+      
+       
+        <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
+          <Form.Label column sm="4" className='left'>
+            Name
+          </Form.Label>
+          <Col sm="8" >
+           
+            <TextField
+            name="fullName"
+            variant='outlined'
+            value={getEmDetails.name}
+          onChange={handleInputChange}
+          inputProps={
+            { readOnly: true, }
+          } />
           
+          </Col>
+        </Form.Group>
+        
 
-              <FormControl>
-                <InputLabel id="demo-mutiple-name-label">
-                  Criteria Satisfied
-                </InputLabel>
-                <Select
-                  name="criteria"
-                  labelId="demo-mutiple-name-label"
-                  id="demo-mutiple-name"
-                  multiple
-                  value={CriteriaSelected}
-                  onChange={handleChange}
-                  input={<Input />}
-                >
-                  {criterias.map((name) => (
-                    <MenuItem key={name} value={name}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+        <Form.Group as={Row} className="mb-2" controlId="formPlaintextEmail">
+          <Form.Label column sm="4" >
+            Designation
+          </Form.Label>
+          <Col sm="8">
+          <TextField 
+          variant='outlined' 
+          name="designation"
+          value={getEmDetails.designation}
+          onChange={handleInputChange}
+          inputProps={
+            { readOnly: true, }
+          } />
+          </Col>
+          </Form.Group>
+       
+       
+        <Form.Group as={Row} className="mb-2">
+          <Form.Label column sm="4" className='left'>
+            NominatedBy
+          </Form.Label>
+          <Col sm="8">
+          <TextField variant='outlined'
+          value={loggeduser.name}
+          name="nominatedBy"
+          onChange={handleInputChange}
+          inputProps={
+            { readOnly: true, }
+          } />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} className="mb-2">
+          <Form.Label column sm="4" className='left'>
+            Criteria Satisfied
+          </Form.Label>
+          <Col sm="8">
+          <FormControl sx={{width: '25ch' }}>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={CriteriaSelected}  
+          name="criteria"
+          onChange={handleChange}
+          input={<OutlinedInput />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {criterias.map((name) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={CriteriaSelected.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+          </Col>
+        </Form.Group>
 
-              {/* Working */}
-              {/* 
-  <Controls.Select
-  name="criteria" 
-  onChange={SelectHandle}
-  label ="criteria" 
-  isMulti
-  options={[
-    { value:'Client appreciation', label: 'Client appreciation' },
-    { value:'Team Player', label: 'Team Player' },
-    { value:'Timely leaves', label: 'Timely leaves' },
-    { value:'Added work to company', label: 'Added work to company' },
-    { value:'Asset for company', label: 'Asset for company' }
-]}/> */}
+        
 
-              <Controls.Input
-                name="department"
-                label="Department"
-                value={getEmDetails.department}
-                onChange={handleInputChange}
-                error={errors.department}
-              />
+        <Form.Group as={Row} className="mb-2">
+        <Form.Label column sm="4" className='left'>
+          Department
+        </Form.Label>
+        <Col sm="8">
+        <TextField 
+        variant='outlined' 
+        name="department"
+        value={getEmDetails.department}
+        onChange={handleInputChange}
+        inputProps={
+          { readOnly: true, }
+        } />
+          
+        </Col>
+      </Form.Group>
 
-              <Controls.Input
-                name="praise"
-                label="Praising Words"
-                placeholder="Please write few words for Nominee"
-                onChange={handlePraise}
-              />
+      <Form.Group as={Row} className="mb-2">
+      <Form.Label column sm="4" className='left'>
+        Praising Word
+      </Form.Label>
+      <Col sm="8">
+      <TextField 
+      name="praise"
+      variant='outlined'
+      placeholder="Please write few words for Nominee"
+      onChange={handlePraise}
+      />
+        
+      </Col>
+    </Form.Group>
 
 
-<div>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justifyContent="space-around">
-                      <DatePicker
-                        variant="inline"
-                        openTo="year"
-                        inputformat="MM-yyyy"
-                        views={["year", "month"]}
-                        label="Year and Month"
-                        disableFuture={true}
-                        helperText="Start from year selection"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        minDate={moment('2012-09')}
-                        maxDate={moment()}
-                      
-                      />
-                    </Grid>
-                  </MuiPickersUtilsProvider>
-                </div>
+        <Form.Group as={Row} className="mb-2">
+          <Form.Label column sm="4" className='left'>
+           Month
+          </Form.Label>
+          <Col sm="8">
+    
+            <div>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justifyContent="space-around">
+            <DatePicker
+              variant="outlined"
+              openTo="year"
+              inputformat="MM-yyyy"
+              views={["year", "month"]}
+              
+              disableFuture={true}
+              helperText="Start from year selection"
+              value={selectedDate}
+             
+              onChange={handleDateChange}
+              minDate={moment('2012-09')}
+              maxDate={moment()}
+            
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
+      </div>
+      
+          </Col>
+        </Form.Group>
+        
+        
+      <div className='NominateHeadingButton'>
+        <Controls.Button type="submit" text="Submit" />
+        <Controls.Button
+          type="cancel"
+          text="cancel"
+          color="secondary"
+          variant="outlined"
+          onClick={() => {
+            history.push("/admin");
+          }}
+        />
+      </div>
+      </Form>
+    
+    </div>
 
-              <div>
-                <Controls.Button type="submit" text="Submit" />
-                <Controls.Button text="Draft" color="default" />
-                <Controls.Button
-                  type="cancel"
-                  text="cancel"
-                  color="secondary"
-                  variant="outlined"
-                  onClick={() => {
-                    history.push("/ManagersEmpDetails");
-                  }}
-                />
-              </div>
-            </Box>
-        </Form>
-      {/*</Container>*/}
+    
+  </div>
+  </Box>
+  )
      
-    </>
-  );
 };
 
 export default NominateForm;
