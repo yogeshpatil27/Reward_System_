@@ -204,6 +204,7 @@ const NominateForm = (props) => {
           input={<OutlinedInput />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
+          required
         >
           {criterias.map((name) => (
             <MenuItem key={name} value={name}>
@@ -241,6 +242,7 @@ const NominateForm = (props) => {
       </Form.Label>
       <Col sm="8">
       <TextField 
+      required
       name="praise"
       variant='outlined'
       placeholder="Please write few words for Nominee"
