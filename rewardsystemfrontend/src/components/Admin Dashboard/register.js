@@ -87,8 +87,10 @@ const Register = () => {
     
     if(isSubmit===true){
       setFormError(validate(user));
-      setisSubmit(false)
-    }if(isSubmit===false){
+      ///setisSubmit(false)
+    }
+    if(Object.keys(formError).length===0 && (isSubmit)){
+      setFormError(validate(user));
         const { name, email, designation, department, manager, password } = user;
 
     axios.post("http://localhost:9009/employees", user).then((res) => {
@@ -96,7 +98,7 @@ const Register = () => {
       if (res?.data?.success === false) {
         setemailError(res?.data?.message);
       }
-      setFormError(validate(user));
+     setFormError(validate(user));
       if (res.data.success === true) {
         setSuccessMessage(res.data.message);
         setemailError("");
@@ -150,7 +152,10 @@ const Register = () => {
               </Col>
             </Form.Group>
             <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
-              {formError.email||emailError}
+              {formError.email}
+            </p>
+            <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
+              {emailError}
             </p>
 
             <Form.Group as={Row} className="mb-2">
