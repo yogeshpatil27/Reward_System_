@@ -21,6 +21,7 @@ import "date-fns";
 import moment from "moment";
 import { Form, Row, Col } from "react-bootstrap";
 import AdminHeader from "../Header/AdminHeader";
+import TextField from '@material-ui/core/TextField';
 
 const WinnerForm = (props) => {
   const history = useHistory();
@@ -95,73 +96,93 @@ const WinnerForm = (props) => {
       <AdminHeader />
       <div className="setup">
         <div className="winner">
-          <h2 className="heading">Winner Declaration From</h2>
+          <h2  className='WinnerHeadingButton'>Winner Declaration From</h2>
           <Form onSubmit={handleSubmit}>
-            <Form.Group as={Row} className="mb-2" controlId="formPlaintextName">
-              <Form.Label column sm="4" className="left">
-                Name
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  value={getNonimations.fullName}
-                  onChange={handleInputChange}
-                />
-              </Col>
-            </Form.Group>
+          <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
+          <Form.Label column sm="4" className='left'>
+            Name
+          </Form.Label>
+          <Col sm="8" >
+           
+            <TextField
+            name="fullName"
+            variant='outlined'
+            value={getNonimations.fullName}
+            onChange={handleInputChange}
+          inputProps={
+            { readOnly: true, }
+          } />
+          
+          </Col>
+        </Form.Group>
+            
+        <Form.Group as={Row} className="mb-2">
+        <Form.Label column sm="4" className='left'>
+          Department
+        </Form.Label>
+        <Col sm="8">
+        <TextField 
+        variant='outlined' 
+        name="department"
+        value={getNonimations.department}
+        onChange={handleInputChange}
+        inputProps={
+          { readOnly: true, }
+        } />
+          
+        </Col>
+      </Form.Group>
+            
+      <Form.Group as={Row} className="mb-2" controlId="formPlaintextEmail">
+      <Form.Label column sm="4" >
+        Designation
+      </Form.Label>
+      <Col sm="8">
+      <TextField 
+      variant='outlined' 
+      name="designation"
+      value={getNonimations.designation}
+      onChange={handleInputChange}
+      inputProps={
+        { readOnly: true, }
+      } />
+      </Col>
+      </Form.Group>
 
-            <Form.Group
-              as={Row}
-              className="mb-2"
-              controlId="formPlaintextEmail"
-            >
-              <Form.Label column sm="4">
-                Department
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  value={getNonimations.department}
-                  onChange={handleInputChange}
-                />
-              </Col>
-            </Form.Group>
+      <Form.Group as={Row} className="mb-2">
+          <Form.Label column sm="4" className='left'>
+            NominatedBy
+          </Form.Label>
+          <Col sm="8">
+          <TextField variant='outlined'
+          value={getNonimations.nominatedBy}
+          onChange={handleInputChange}
+          name="nominatedBy"
+          inputProps={
+            { readOnly: true, }
+          } />
+          </Col>
+        </Form.Group>
 
-            <Form.Group as={Row} className="mb-2">
-              <Form.Label column sm="4" className="left">
-                Designation
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  value={getNonimations.designation}
-                  onChange={handleInputChange}
-                />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-2">
-              <Form.Label column sm="4" className="left">
-                NominatedBy
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  value={getNonimations.nominatedBy}
-                  onChange={handleInputChange}
-                />
-              </Col>
-            </Form.Group>
 
             <Form.Group as={Row} className="mb-2" controlId="formPlaintextName">
               <Form.Label column sm="4" className="left">
                 Nominated Month
               </Form.Label>
               <Col sm="8">
-                <Form.Control
-                  value={moment(getNonimations.Months).format("MMMM YYYY")}
-                  onChange={handleInputChange}
-                />
+              <TextField 
+                      variant='outlined' 
+                      name="designation"
+                      value={moment(getNonimations.Months).format("MMMM YYYY")}
+                      onChange={handleInputChange}
+                      inputProps={
+                        { readOnly: true, }
+                      } />
               </Col>
             </Form.Group>
             
 
-            <div>
+            <div  className='WinnerHeadingButton'>
               <Controls.Button type="submit" text="Submit" />
               <Controls.Button
                 type="cancel"
