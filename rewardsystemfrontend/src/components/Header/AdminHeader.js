@@ -17,7 +17,7 @@ const AdminHeader = () => {
   const loggeduser = getLocalStorage("user");
 
   const Container = styled.div`
-  height: 70px;
+  height: 70px,auto;
   border: none;
   align-items:center;
   background:white;
@@ -45,6 +45,7 @@ const AdminHeader = () => {
   border:none;
   background-color:white;
   color:black;
+  font-weight: bold;
   `
   
   const RegisterempLink=styled.button`
@@ -55,6 +56,7 @@ const AdminHeader = () => {
   border:none;
   background-color:white;
   color:black;
+  font-weight: bold;
   `
   
   const EmployeeDetails=styled.button`
@@ -63,7 +65,8 @@ const AdminHeader = () => {
   border:none;
   cursor: pointer;
   background-color:white;
-  color:black;`
+  color:black;
+  font-weight: bold;`
   
   
   const WinnersList=styled.button`
@@ -72,17 +75,21 @@ const AdminHeader = () => {
   border:none;
   cursor: pointer;
   background-color:white;
-  color:black;`
+  color:black;
+  font-weight: bold;
+  `
   
   const Right=styled.div`
   font-size:18px;
   flex:1;
   justify-content:end;
   display:flex;
+  
   `
   const UserName=styled.div`
   font-size:18px;
   margin-right:70px;
+  font-weight: bold;
   border:none;
   background-color:white;
   color:black

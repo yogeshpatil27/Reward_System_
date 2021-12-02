@@ -259,7 +259,7 @@ const Register = () => {
                 />
               </div>
             </FormButtons>
-            <p style={{ color: "black", marginTop: "5%" }}>
+            <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>
               {successMessage}
             </p>
           </Form>

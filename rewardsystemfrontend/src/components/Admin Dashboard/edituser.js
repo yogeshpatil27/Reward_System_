@@ -223,7 +223,7 @@ const Edituser = (props) => {
             </div>
           </FormButtons>
         </Form>
-        <p style={{ color: "black", marginTop: "5%" }}>{successMessage}</p>
+        <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>{successMessage}</p>
       </Container>
     </>
   );

@@ -99,7 +99,7 @@ router.post("/", async (req, res) => {
 
         Emp.save()
           .then(() => {
-            res.status(200).json({ success: true,  message: "Successfully Registered",});
+            res.status(200).json({ success: true,  message: "Successfully registered",});
           })
           .catch((e) => {
             console.log("Error Message while Saving in DB: " + e);

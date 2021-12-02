@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   
     Wins.findOne({Months:Months},async(err,result)=>{
       if(result){
-        res.send({message:"Winner Already Declaired for this month"})
+        res.send({message:"Winner already declaired for selected month"})
       }
       else{
         const win = new Wins({

@@ -56,10 +56,11 @@ const WinnerForm = (props) => {
   };
 
   const [winnerDetails, setWinnersDetails] = useState([]);
+  const [PromtMessage, setPromtMessage] = useState();
 
   const GetAllwinners = async () => {
     const res = await axios.get(`http://localhost:9009/winners`);
-    console.log("This winners data I want to print", res.data);
+    //console.log("This winners data I want to print", res.data);
 
     let WinnerMonths = res.data.map((a) => a.Months);
     let MonthsasString = WinnerMonths.map((a) => moment(a).format("MMMM"));
@@ -83,10 +84,11 @@ const WinnerForm = (props) => {
     await axios
       .post("http://localhost:9009/winners", initialFValues)
       .then((res) => {
-        alert(res.data.message);
+       // alert(res.data.message);
+        setPromtMessage(res.data.message);
         // //            setLoginUser(res.data.user)
       });
-    history.push("/admin");
+    //history.push("/admin");
   };
   return (
     <>
@@ -157,6 +159,7 @@ const WinnerForm = (props) => {
                 />
               </Col>
             </Form.Group>
+            
 
             <div>
               <Controls.Button type="submit" text="Submit" />
@@ -170,6 +173,8 @@ const WinnerForm = (props) => {
                 }}
               />
             </div>
+            <p style={{ color: "Black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>{PromtMessage}</p>
+         
           </Form>
         </div>
 
