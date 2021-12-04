@@ -1,10 +1,12 @@
 import express from "express";
 import bcrypt from "bcrypt";
-//import employees from '../model/employee.js';
+//import Employee from '../model/employee.js';
 import Employee from "../app.js";
 import mongoose from "mongoose";
+import crypto from "crypto";
 
 const router = express.Router();
+
 
 //Get All Employees
 router.get("/", async (req, res) => {
@@ -70,6 +72,44 @@ router.put("/", async (req, res) => {
     res.json({ message: error.message });
   }
 });
+
+//Working reset password
+router.put("/reset/:token", async (req, res)=>{
+
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+    
+    const user= await Employee.findOne({
+      resetPasswordToken,
+      resetPasswordExpire:{$gt : Date.now()},
+    })
+
+    try{
+    if(!user){
+      res.send({ message: "Link not valid, please reset link" });
+    }
+
+    if(req.body.password !== req.body.confirmPassword){
+      res.send({ message: "Password not matched" });
+    }
+
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(req.body.password, salt);
+ //user.password= req.body.password;
+    user.resetPasswordToken= undefined;
+    user.resetPasswordExpire=undefined;
+
+    await user.save()
+    
+    res.send({ message: "Password changed succesfully" });
+  }catch(err){
+  res.send({message:"Generated error while resetting password", err})
+}
+})
+
 
 
 

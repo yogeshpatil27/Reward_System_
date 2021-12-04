@@ -32,19 +32,19 @@ const Login = () => {
       isAuthenticated().designation === "Manager"
     ) {
       //  console.log("I am a Manager");
-      history.push("/Manager");
+      history.push("/manager");
     } else if (
       isAuthenticated() &&
       isAuthenticated().designation === "Team Lead"
     ) {
       //  console.log("I am Team Lead");
-      history.push("/Employee");
+      history.push("/employee");
     } else if (
       isAuthenticated() &&
       isAuthenticated().designation === "Employee"
     ) {
       // console.log("I am a Employee");
-      history.push("/Employee");
+      history.push("/employee");
     }
   }, []);
 
@@ -130,7 +130,7 @@ const Login = () => {
           type="email"
           value={user.email}
           onChange={handleChange}
-          placeholder="Enter your Email"
+          placeholder="Enter your email"
           error={formError.email}
           />   
             </Col>
@@ -176,7 +176,7 @@ const Login = () => {
           </Typography>
         </Form>
 
-        {/* <div>{JSON.stringify(user)}</div>   */}
+        <div>{JSON.stringify(user)}</div>  
       </Container>
     </div>
   );
