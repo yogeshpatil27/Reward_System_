@@ -8,13 +8,13 @@ const sendEmail=async (options)=>{
         port:465,
         service:"gmail",
         auth:{
-            user:"yogeshmech9@gmail.com",
-            pass:"Yogi@2610",
+            user:process.env.SMPT_MAIL,
+            pass:process.env.SMPT_password,
         }
     })
 
-    const mailOptions ={
-        from:"yogeshmech9@gmail.com",
+    const mailOptions={
+        from:process.env.SMPT_MAIL,
         to:options.email,
         subject:options.subject,
         text:options.message,
