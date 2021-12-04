@@ -52,9 +52,9 @@ const setManagersDetails =async()=>{
                     <td>
                       <button
 
- onClick={() => history.push(`/NominateForm/${e._id}`)}
+ onClick={() => history.push(`/nominateform/${e._id}`)}
  component={Link}
- to={`/NominateForm/${e._id}`}
+ to={`/nominateform/${e._id}`}
                       >
                         Nominate
                       </button>

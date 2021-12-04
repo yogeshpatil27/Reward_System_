@@ -11,4 +11,6 @@ const winners = new mongoose.Schema({
   Months: Date,
 });
 
-export default winners;
+
+const Wins= new mongoose.model("Winner", winners);
+export default Wins;

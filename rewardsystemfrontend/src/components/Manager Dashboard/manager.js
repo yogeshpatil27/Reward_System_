@@ -12,7 +12,7 @@ const Manager=() =>{
     useEffect(() => {
         if (isAuthenticated() && isAuthenticated().designation === "Manager") {
             console.log("I am a Manager");
-            history.push('/Manager')
+            history.push('/manager')
           } else{
               history.push('/')
           }

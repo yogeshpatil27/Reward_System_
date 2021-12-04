@@ -74,7 +74,7 @@ const employee1 = new mongoose.Schema({
 
 
 
-// Working get Employee
+//get Employees
 app.get("/manage",async (req, res)=>{
   const ManagerList = await Employee.find({'designation': 'Manager'},{name:1});
   try {

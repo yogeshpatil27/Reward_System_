@@ -10,7 +10,7 @@ const Employee = () =>{
 
     useEffect(() => {
         if (isAuthenticated() && (isAuthenticated().designation === "Employee" || isAuthenticated().designation === "Team Lead")) {
-            history.push('/Employee')
+            history.push('/employee')
           } else{
               history.push('/')
           }

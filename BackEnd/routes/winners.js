@@ -1,9 +1,9 @@
 import express, { response } from "express";
 import mongoose from "mongoose";
-import winners from "../model/winners.js";
+import Wins from "../model/winners.js";
 
 const router = express.Router();
-const Wins= new mongoose.model("Winner", winners);
+//const Wins= new mongoose.model("Winner", winners);
 
 router.post("/", async (req, res) => {
     const {
