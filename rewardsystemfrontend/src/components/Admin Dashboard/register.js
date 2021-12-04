@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ShowErrorMessage } from "../helper/helper";
-import "./register.css";
+import '../Manager Dashboard/NominateForm.css';
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -204,13 +204,13 @@ else if(!isStrongPassword(values.password)){
           value={user.email}
           onChange={handleChange}
           placeholder="Enter your Email"
-          error={formError.email}
+          error={formError.email || emailError}
           />   
           </Col>
           </Form.Group>
-        <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
+        {/*<p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
           {emailError}
-        </p>
+  </p>*/}
         <Form.Group as={Row} className="mb-2" >
               <Form.Label column sm="4" className="left">
                 Designation
@@ -223,7 +223,10 @@ else if(!isStrongPassword(values.password)){
           name="designation"
           value={user.designation}
           onChange={handleChange}
-          options={getDesignation()}>
+          options={getDesignation()}
+
+          
+        >
         </Controls.Select>
       </FormControl>
             </Col>
@@ -302,7 +305,7 @@ else if(!isStrongPassword(values.password)){
             </Col>
           </Form.Group>
           
-        <FormButtons>
+        
           <div className="NominateHeadingButton">
             <Controls.Button
               type="submit"
@@ -316,7 +319,7 @@ else if(!isStrongPassword(values.password)){
               onClick={close}
             />
           </div>
-        </FormButtons>
+        
         <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>
           {successMessage}
         </p>

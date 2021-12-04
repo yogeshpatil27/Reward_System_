@@ -161,7 +161,7 @@ const Login = () => {
   </p>*/}
           </Form.Group>
 
-          <FormButtons>
+          
             <div className="button">
               <Controls.Button
                 type="submit"
@@ -170,7 +170,7 @@ const Login = () => {
                 fullWidth
               />
             </div>
-          </FormButtons>
+         
           <Typography className="link">
             <Link href="#">Forget password?</Link>
           </Typography>
