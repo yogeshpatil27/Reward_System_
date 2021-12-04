@@ -2,6 +2,7 @@ import Input from "./Input";
 import RadioGroup from "./RadioGroup";
 import Select from "./Select";
 import Checkbox from "./Checkbox";
+
 //import Select from 'react-select'
 
 import Button from "./Button";
@@ -11,7 +12,8 @@ const Controls = {
     RadioGroup,
     Select,
     Checkbox,
-    Button
+    Button,
+   
 }
 
 export default Controls;

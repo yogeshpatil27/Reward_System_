@@ -3,6 +3,7 @@ import AdminHeader from '../Header/AdminHeader'
 import { useHistory } from 'react-router';
 import { isAuthenticated } from '../../Authen';
 import Feeds from '../Feed/feeds';
+import Footer from '../Footer/Footer';
 
 
 
@@ -26,7 +27,7 @@ const authenticateLogin=()=>{
         <>
         <AdminHeader/>
         <Feeds/>
-        
+        <Footer />
         </>
     )
 }

@@ -15,6 +15,41 @@ import { isAuthenticated } from "../../Authen";
 import styled from "styled-components";
 import Controls from "../Manager Dashboard/controls/Controls";
 
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+
+
+const getDesignation = ()=>([
+  { id: '1', name: 'Manager' },
+  { id: '2', name: 'Team Lead' },
+  { id: '3', name: 'Employee' },
+  
+])
+
+
+const getDepartment = ()=>([
+  { id: '1', name: 'Development' },
+  { id: '2', name: 'Quality Assurance' },
+  { id: '3', name: 'Digital Assurance' },
+  
+])
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 100,
+    },
+  },
+};
+
 const Register = () => {
   const FormButtons = styled.div`
     display: flex;
@@ -24,6 +59,8 @@ const Register = () => {
   const [successMessage, setSuccessMessage] = useState();
   const [isSubmit, setisSubmit] = useState(true);
   const [ManagerList, setManagerData] = useState([]);
+
+  
 
   useEffect(() => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
@@ -43,10 +80,11 @@ const Register = () => {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    designation: "Manager",
-    department: "Development",
+    designation: "",
+    department: "",
     manager: "",
     password: "",
+    showPassword: false,
   });
 
   const handleChange = (e) => {
@@ -56,6 +94,9 @@ const Register = () => {
       [name]: value,
     });
   };
+  
+
+  
 
   const close = () => {
     history.push("/admin");
@@ -96,6 +137,9 @@ error.email="Please enter valid email address"
 else if(message){
   error.email=`${message}`
   }
+else if(!isEmpty(values.designation)){
+    error.email="Please enter designation"
+    }
 if(!values.password){
   error.password="Please enter password";
 }
@@ -114,173 +158,185 @@ else if(!isStrongPassword(values.password)){
   };
 
   return (
-    <>
+   <>
       <AdminHeader />
-      <div className="setup">
-        <Container className="SetupForm">
-          <h2 className="heading">Register Employee</h2>
-          <Form>
-            <Form.Group as={Row} className="mb-2" controlId="formPlaintextName">
-              <Form.Label column sm="4" className="left">
-                Name
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  name="name"
-                  type="text"
-                  // onkeypress="return /[a-z]/i.test(event.key)"
-                  value={user.name}
-                  onChange={handleChange}
-                  placeholder="Enter your Name"
-                />
-              </Col>
-            </Form.Group>
-            <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
-              {formError.name}
-            </p>
 
-            <Form.Group
-              as={Row}
-              className="mb-2"
-              controlId="formPlaintextEmail"
-            >
-              <Form.Label column sm="4" className="left">
-                Email
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  name="email"
-                  type="email"
-                  value={user.email}
-                  onChange={handleChange}
-                  placeholder="Enter your Email"
-                />
-              </Col>
-            </Form.Group>
-            <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
-              {formError.email}
-            </p>
-            <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
-              {emailError}
-            </p>
+      <Box
+    sx={{
+      '& .MuiTextField-root': { width: '25ch' },
+    }}
+    noValidate
+    autoComplete="off"
+  >
+        <div className="popup">
+       
+    <div className="nominate"  >
+    <Form>
+    <h2 className='NominateHeadingButton'>Register Employee</h2>
+      
+       
+        <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
+          <Form.Label column sm="4" className='left'>
+            Name
+          </Form.Label>
+          <Col sm="8" >
+           
+            <Controls.Input
+            name="name"
+              type="text"
+              value={user.name}
+              onChange={handleChange}
+              placeholder="Enter your Name"
+              variant='outlined'
+              error = {formError.name} />
+          
+          </Col>
+        </Form.Group>
+        
 
-            <Form.Group as={Row} className="mb-2">
+        <Form.Group as={Row} className="mb-2" controlId="formPlaintextEmail">
+          <Form.Label column sm="4" >
+            Email
+          </Form.Label>
+          <Col sm="8">
+          <Controls.Input
+          variant="outlined"
+          name="email"
+          type="email"
+          value={user.email}
+          onChange={handleChange}
+          placeholder="Enter your Email"
+          error={formError.email}
+          />   
+          </Col>
+          </Form.Group>
+        <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
+          {emailError}
+        </p>
+        <Form.Group as={Row} className="mb-2" >
               <Form.Label column sm="4" className="left">
                 Designation
               </Form.Label>
               <Col sm="8">
-                <Form.Control
-                  as="select"
-                  name="designation"
-                  value={user.designation}
-                  onChange={handleChange}
-                >
-                  {/* <option selected>Select Designation</option> */}
-                  <option defaultValue value="Manager">
-                    Manager
-                  </option>
-                  <option value="Team Lead">Team Lead</option>
-                  <option value="Employee">Employee</option>
-                </Form.Control>
-              </Col>
-            </Form.Group>
+        <FormControl sx={{ width: '25ch' }}>
+        <Controls.Select
+        required
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          name="designation"
+          value={user.designation}
+          onChange={handleChange}
+          options={getDesignation()}
+          
+        >
+        </Controls.Select>
+      </FormControl>
+            </Col>
+          </Form.Group>
 
-            {(user.designation === "Employee" ||
-              user.designation === "Team Lead") && (
-              <>
-                <Form.Group as={Row} className="mb-2">
-                  <Form.Label column sm="4" className="left">
-                    Manager
-                  </Form.Label>
-                  <Col sm="8">
-                    <Form.Control
-                      as="select"
-                      onChange={handleChange}
-                      name="manager"
-                    >
-                      <option>Please Select Manager</option>
-                      {ManagerList?.map((ef) => {
-                        return (
-                          <>
-                            <option value={ef._id} key={ef._id}>
-                              {ef.name}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
+          {(user.designation === "Employee" ||
+            user.designation === "Team Lead") && (
+            <>
+              <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm="4" className='left'>
+                  Manager
+                </Form.Label>
+                <Col sm="8">
+                  <FormControl sx={{ m: 1, width: '25ch' }}>
+                  <Select 
+                  
+                  onChange={handleChange}
+                  name="manager"
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper">
+                  <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                    {ManagerList?.map((ef) => {
+                      return (
+                        
+                          <MenuItem value={ef._id} key={ef._id}>
+                            {ef.name}
+                          </MenuItem>
+                         
+                        
+                      );
+                    })}
+                    </Select>
+                  </FormControl>
                   </Col>
                 </Form.Group>
               </>
             )}
-
             <Form.Group as={Row} className="mb-2">
               <Form.Label column sm="4" className="left">
                 Department
               </Form.Label>
               <Col sm="8">
-                <Form.Control
-                  as="select"
+              
+                <FormControl sx={{ m: 1, width: '25ch' }}>
+                <Controls.Select 
+                 MenuProps={MenuProps}
                   name="department"
                   value={user.department}
                   onChange={handleChange}
+                  options={getDepartment()}
+                  error={formError.email}
                 >
-                  <option defaultValue value="Development">
-                    Development
-                  </option>
-                  <option value="Quality Assurance">Quality Assurance</option>
-                  <option value="Digital Assurance">Digital Assurance</option>
-                </Form.Control>
+      
+                  </Controls.Select>
+                </FormControl>
               </Col>
             </Form.Group>
 
-            <Form.Group
-              as={Row}
-              className="mb-3"
-              controlId="formPlaintextPassword"
-            >
-              <Form.Label column sm="4" className="left">
-                Password
-              </Form.Label>
-              <Col sm="8">
-                <Form.Control
-                  name="password"
-                  type="password"
-                  value={user.password}
-                  onChange={handleChange}
-                  placeholder="Enter your Password"
-                />
-              </Col>
-            </Form.Group>
-            <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
-              {formError.password}
-            </p>
-            <FormButtons>
-              <div className="button">
-                <Controls.Button
-                  type="submit"
-                  text="Register"
-                  onClick={register}
-                />
-                <Controls.Button
-                  text="Close"
-                  color="secondary"
-                  variant="outlined"
-                  onClick={close}
-                />
-              </div>
-            </FormButtons>
-            <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>
-              {successMessage}
-            </p>
-          </Form>
-        </Container>
+            <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
+            <Form.Label column sm="4" className='left'>
+              Password
+            </Form.Label>
+            <Col sm="8" >
+             
+              <Controls.Input
+              name="password"
+              type="password"
+              value={user.password}
+              onChange={handleChange}
+              placeholder="Enter your Password"
+              error = {formError.password}
+              />
+            
+            </Col>
+          </Form.Group>
+          
+        <FormButtons>
+          <div className="NominateHeadingButton">
+            <Controls.Button
+              type="submit"
+              text="Register"
+              onClick={register}
+            />
+            <Controls.Button
+              text="Close"
+              color="secondary"
+              variant="outlined"
+              onClick={close}
+            />
+          </div>
+        </FormButtons>
+        <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>
+          {successMessage}
+        </p>
+       
+       
+        
 
-        {/* <div>
-        <p>{JSON.stringify(user)}</p>
-      </div> */}
-      </div>
-    </>
+       </Form> 
+       </div>
+       </div>
+       </Box>
+      
+      
+      </>
+   
   );
 };
 

@@ -10,6 +10,7 @@ import isEmail from "validator/es/lib/isEmail";
 import isEmpty from "validator/es/lib/isEmpty";
 import isStrongPassword from "validator/es/lib/isStrongPassword";
 import Controls from "../Manager Dashboard/controls/Controls";
+import AdminHeader from '../Header/AdminHeader'
 
 const Edituser = (props) => {
   const FormButtons = styled.div`
@@ -105,6 +106,7 @@ const Edituser = (props) => {
 
   return (
     <>
+    <AdminHeader />
       <Container className="SetupForm">
         <h2 className="heading-1">Update Employee Details</h2>
         {/*<div className="card-body">*/}

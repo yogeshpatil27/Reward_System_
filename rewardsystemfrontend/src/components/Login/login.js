@@ -52,12 +52,12 @@ const Login = () => {
     const error = {};
 
     if (isEmpty(values.email)) {
-      error.email = "Please enter email";
+      error.email = "Please enter Email";
     } else if (message) {
       error.message = `${message}`;
     }
     if (!values.password) {
-      error.password = "Please enter password";
+      error.password = "Please enter Password";
     }
 
     return error;
