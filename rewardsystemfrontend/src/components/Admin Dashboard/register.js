@@ -137,7 +137,12 @@ error.email="Please enter valid email address"
 else if(message){
   error.email=`${message}`
   }
-
+if(!(values.designation)){
+    error.designation="Please select designation"
+  }
+  if(!(values.department)){
+    error.department="Please select department"
+  }
 if(!values.password){
   error.password="Please enter password";
 }
@@ -224,9 +229,8 @@ else if(!isStrongPassword(values.password)){
           value={user.designation}
           onChange={handleChange}
           options={getDesignation()}
-
-          
-        >
+          error={formError.designation}
+          >
         </Controls.Select>
       </FormControl>
             </Col>
@@ -279,7 +283,7 @@ else if(!isStrongPassword(values.password)){
                   value={user.department}
                   onChange={handleChange}
                   options={getDepartment()}
-                  error={formError.email}
+                  error={formError.department}
                 >
       
                   </Controls.Select>
