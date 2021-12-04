@@ -137,9 +137,7 @@ error.email="Please enter valid email address"
 else if(message){
   error.email=`${message}`
   }
-else if(!isEmpty(values.designation)){
-    error.email="Please enter designation"
-    }
+
 if(!values.password){
   error.password="Please enter password";
 }
@@ -220,15 +218,12 @@ else if(!isStrongPassword(values.password)){
               <Col sm="8">
         <FormControl sx={{ width: '25ch' }}>
         <Controls.Select
-        required
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
           name="designation"
           value={user.designation}
           onChange={handleChange}
-          options={getDesignation()}
-          
-        >
+          options={getDesignation()}>
         </Controls.Select>
       </FormControl>
             </Col>

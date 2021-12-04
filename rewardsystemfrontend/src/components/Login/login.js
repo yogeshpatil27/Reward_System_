@@ -124,15 +124,18 @@ const Login = () => {
               Email
             </Form.Label>
             <Col sm="8">
-              <Form.Control
-                name="email"
-                type="email"
-                value={user.email}
-                onChange={handleChange}
-                placeholder="Enter your Email"
-              />
-            </Col>{" "}
-            <p style={{ color: "red", marginLeft: "30%" }}>{formError.email}</p>
+            <Controls.Input
+          variant="outlined"
+          name="email"
+          type="email"
+          value={user.email}
+          onChange={handleChange}
+          placeholder="Enter your Email"
+          error={formError.email}
+          />   
+            </Col>
+            {/*{" "}
+  <p style={{ color: "red", marginLeft: "30%" }}>{formError.email}</p>*/}
           </Form.Group>
 
           <Form.Group
@@ -144,17 +147,18 @@ const Login = () => {
               Password
             </Form.Label>
             <Col sm="8">
-              <Form.Control
+              <Controls.Input
                 name="password"
                 type="password"
                 value={user.password}
                 onChange={handleChange}
                 placeholder="Enter your Password"
+                error = {formError.password || formError.message}
               />
             </Col>
-            <p style={{ color: "red", marginLeft: "30%", marginTop:"5%" }}>
+            {/*<p style={{ color: "red", marginLeft: "30%", marginTop:"5%" }}>
               {formError.password || formError.message}
-            </p>
+  </p>*/}
           </Form.Group>
 
           <FormButtons>
