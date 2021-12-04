@@ -18,7 +18,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import moment from 'moment';
 import {Form, Row, Col } from "react-bootstrap";
-
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -28,6 +27,8 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 // import TextField from '@mui/material/TextField';
 import TextField from '@material-ui/core/TextField';
+import AdminHeader from '../Header/AdminHeader'
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -124,6 +125,8 @@ const NominateForm = (props) => {
   };
 
   return (
+    <>
+    <AdminHeader/>
     <Box
     sx={{
       '& .MuiTextField-root': { width: '25ch' },
@@ -194,6 +197,7 @@ const NominateForm = (props) => {
           </Form.Label>
           <Col sm="8">
           <FormControl sx={{width: '25ch' }}>
+           
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
@@ -206,6 +210,7 @@ const NominateForm = (props) => {
           MenuProps={MenuProps}
           required
         >
+          
           {criterias.map((name) => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={CriteriaSelected.indexOf(name) > -1} />
@@ -245,7 +250,7 @@ const NominateForm = (props) => {
       required
       name="praise"
       variant='outlined'
-      placeholder="Please write few words for Nominee"
+      placeholder="Please write few words for nominee"
       onChange={handlePraise}
       />
         
@@ -293,7 +298,7 @@ const NominateForm = (props) => {
           color="secondary"
           variant="outlined"
           onClick={() => {
-            history.push("/admin");
+            history.push("/managersempdetails");
           }}
         />
       </div>
@@ -304,6 +309,7 @@ const NominateForm = (props) => {
     
   </div>
   </Box>
+  </>
   )
      
 };

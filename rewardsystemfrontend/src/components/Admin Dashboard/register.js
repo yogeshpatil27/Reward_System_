@@ -110,9 +110,11 @@ if(Object.keys(formError).length===0&&isSubmit){
   axios.post("http://localhost:9009/employees", user).then((res) => {
     
   if(res.data.success===true){
-  setSuccessMessage(res.data.message);}
+  setSuccessMessage(res.data.message);
+setemailError("")}
   else if(res.data.success===false){
     setemailError(res.data.message);
+    setSuccessMessage("")
   }
     //alert(res.data.message)
     //setLoginUser(res.data.user)
@@ -147,6 +149,10 @@ else if(!isStrongPassword(values.password)){
   error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
 }
 
+// if(isEmpty(values.manager)){
+//   error.manager="Please select manager"
+// }
+
  return error;
   }
 
@@ -155,6 +161,7 @@ else if(!isStrongPassword(values.password)){
     evt.preventDefault();
     setFormError(validate(user, successMessage));
     setisSubmit(true);
+
   };
 
   return (
@@ -234,6 +241,7 @@ else if(!isStrongPassword(values.password)){
             </Col>
           </Form.Group>
 
+<<<<<<< HEAD
           {(user.designation === "Employee" ||
             user.designation === "Team Lead") && (
             <>
@@ -264,6 +272,35 @@ else if(!isStrongPassword(values.password)){
                     })}
                     </Select>
                   </FormControl>
+=======
+            {(user.designation === "Employee" ||
+              user.designation === "Team Lead") && (
+              <>
+                <Form.Group as={Row} className="mb-2">
+                  <Form.Label column sm="4" className="left">
+                    Manager
+                  </Form.Label>
+                  <Col sm="8">
+                    <Form.Control
+                      as="select"
+                      onChange={handleChange}
+                      name="manager"
+                    >
+                      <option>Please Select Manager</option>
+                      {ManagerList?.map((ef) => {
+                        return (
+                          <>
+                            <option value={ef._id} key={ef._id}>
+                              {ef.name}
+                            </option>
+                          </>
+                        );
+                      })}
+                    </Form.Control>
+                    {/* <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
+              {formError.manager}
+            </p> */}
+>>>>>>> 35247d76907b3d03f7de6f9cd6f60ce9eede595c
                   </Col>
                 </Form.Group>
               </>
