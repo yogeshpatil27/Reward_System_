@@ -29,7 +29,8 @@
 }
 
 .NominateHeadingButton{
-   padding: 20px;
+    padding: 20px;
+    /* justify-content: center; */
     text-align: center;
     align-items: center;
 }

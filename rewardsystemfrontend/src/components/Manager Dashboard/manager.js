@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { isAuthenticated } from '../../Authen'
 import { useHistory } from 'react-router'
 import Feeds from '../Feed/feeds'
+import Footer from '../Footer/Footer';
 
 
 const Manager=() =>{
@@ -21,6 +22,7 @@ const Manager=() =>{
     return (<>
 <AdminHeader/>
 <Feeds/>
+<Footer />
         </>
     )
 }

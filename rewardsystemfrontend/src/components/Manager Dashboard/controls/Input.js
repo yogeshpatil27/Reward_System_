@@ -3,10 +3,12 @@ import { TextField } from '@material-ui/core';
 
 export default function Input(props) {
 
-    const { name, label, value,error=null, onChange } = props;
+    const { name, label, value,error=null, onChange,type,placeholder } = props;
     return (
         <TextField
-            variant="filled"
+            variant="outlined"
+            placeholder={placeholder}
+            type = {type}
             label={label}
             name={name}
             value={value}

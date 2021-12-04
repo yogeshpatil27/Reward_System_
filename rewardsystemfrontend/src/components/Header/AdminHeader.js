@@ -127,7 +127,7 @@ const AdminHeader = () => {
             <Wrapper>
               <Left>
                 <img src='/assets/logo.jpg' alt ="Rewards" className='image' />
-                <Feed onClick={()=>{ history.push("/admin")}}>Feed</Feed>
+                <Feed onClick={()=>{ history.push("/admin")}}>Feeds</Feed>
                 <RegisterempLink onClick={()=>{  history.push("/register")}}>Register Employee</RegisterempLink>
                 <EmployeeDetails onClick={()=>{  history.push("/employeedetails")}}>Employee Details</EmployeeDetails>
                 <WinnersList onClick={()=>{  history.push("/winners")}}>Winners List</WinnersList>
@@ -146,7 +146,7 @@ const AdminHeader = () => {
               <Left>
               <img src='/assets/logo.jpg' alt ="Rewards" className='image' />
             
-                <Feed onClick={()=>{ history.push("/manager")}}>Feed</Feed>
+                <Feed onClick={()=>{ history.push("/manager")}}>Feeds</Feed>
                 <EmployeeDetails onClick={()=>{  history.push("/managersempdetails")}}>Employee Details</EmployeeDetails>
                 <WinnersList onClick={()=>{  history.push("/winners")}}>Winners List</WinnersList>
               </Left>
@@ -167,7 +167,7 @@ isAuthenticated() && (isAuthenticated().designation === "Employee"||isAuthentica
             <Wrapper>
               <Left>
               <img src='/assets/logo.jpg' alt ="Rewards" className='image' />
-                <Feed onClick={()=>{history.push("/employee")}}>Feed</Feed>
+                <Feed onClick={()=>{history.push("/employee")}}>Feeds</Feed>
                 <WinnersList onClick={()=>{history.push("/winners")}}>Winners List</WinnersList>
               </Left>
               <Right>
