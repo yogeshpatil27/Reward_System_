@@ -172,11 +172,11 @@ const Login = () => {
             </div>
          
           <Typography className="link">
-            <Link href="#">Forget password?</Link>
+            <Link onClick={()=>{ history.push("/forgotpassword")}}>Forget password?</Link>
           </Typography>
         </Form>
-
-        <div>{JSON.stringify(user)}</div>  
+{/* 
+        <div>{JSON.stringify(user)}</div>   */}
       </Container>
     </div>
   );

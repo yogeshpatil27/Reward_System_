@@ -88,11 +88,12 @@ router.put("/reset/:token", async (req, res)=>{
 
     try{
     if(!user){
-      res.send({ message: "Link not valid, please reset link" });
-    }
+      res.status(208).json({ success: false,  message:"Link not valid, please reset link",});
+        }
 
     if(req.body.password !== req.body.confirmPassword){
-      res.send({ message: "Password not matched" });
+      res.status(208).json({ success: false,  message:"Password not matched",});
+  
     }
 
 
@@ -102,11 +103,12 @@ router.put("/reset/:token", async (req, res)=>{
     user.resetPasswordToken= undefined;
     user.resetPasswordExpire=undefined;
 
-    await user.save()
-    
-    res.send({ message: "Password changed succesfully" });
+    await user.save();
+  
+    res.status(200).json({ success: true,  message:"Password changed succesfully",});
+  
   }catch(err){
-  res.send({message:"Generated error while resetting password", err})
+    res.status(208).json({ success: false,  message:"Generated error while resetting password",err});
 }
 })
 

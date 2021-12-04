@@ -159,7 +159,9 @@ app.post("/forgotPassword", async (req, res) => {
   const user = await Employee.findOne({ email: req.body.email });
 
   if (!user) {
-    res.send({ message: "Email not found" });
+
+    res.status(208).json({ success: false,  message:"Email not found",});
+   // res.send({ message: "Email not found" });
   }
 
   const resettoken = crypto.randomBytes(20).toString("hex");
@@ -179,7 +181,7 @@ app.post("/forgotPassword", async (req, res) => {
     { upsert: false }
   );
 
-  const resetPasswordUrl = `http://localhost:9009/employees/password/reset/${resettoken}`;
+  const resetPasswordUrl = `http://localhost:3000/password/reset/${resettoken}`;
 
   const message = `Your password reset link is :- \n\n ${resetPasswordUrl}\n\n If you have not request this mail then please ignore`;
 
@@ -190,10 +192,8 @@ app.post("/forgotPassword", async (req, res) => {
       message,
     });
 
-    res.send({
-      success: true,
-      message: `Email send to ${user.email}`,
-    });
+    res.status(200).json({ success: true,  message: `Email send to ${user.email}`,});
+ 
   } catch (error) {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;

@@ -14,6 +14,8 @@ import Winners from "./components/winnersList/winners";
 import ManagerEmpDetails from "./components/Manager Dashboard/managerEmpDetails";
 import NominateForm from "./components/Manager Dashboard/NominateForm";
 import WinnerForm from "./components/Admin Dashboard/WinnerForm";
+import ForgotPassword from "./components/Login/forgotpassword";
+import ResetPassword from "./components/Login/resetpassword";
 
 function App() {
   return (
@@ -32,7 +34,9 @@ function App() {
             <Route path="/managersempdetails" component={ManagerEmpDetails} /> 
             <Route path="/winnerform/:id" component={WinnerForm} />
             <Route path="/nominateform/:id" component={NominateForm} />
-               
+              <Route path="/forgotpassword" component={ForgotPassword}></Route> 
+            <Route path="/password/reset/:token" component={ResetPassword}></Route>
+            
             <Route component={PageNotFound} />
           </Switch>
         </Router>
