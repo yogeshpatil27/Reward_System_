@@ -128,13 +128,11 @@ if(Object.keys(formError).length===0&&isSubmit){
 
 },[formError])
 
-useEffect(() => {
-  
-    }, []);
+
   
     function generatePassword() {
-      var length = 9,
-          charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$#",
+      var length = 10,
+          charset = "abcdefghijklmnopqrstuvwxyz@$#ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
           retVal = "";
       for (var i = 0, n = charset.length; i < length; ++i) {
           retVal += charset.charAt(Math.floor(Math.random() * n));
