@@ -15,9 +15,6 @@ import { isAuthenticated } from "../../Authen";
 import styled from "styled-components";
 import Controls from "../Manager Dashboard/controls/Controls";
 
-import InputLabel from '@mui/material/InputLabel';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
@@ -26,8 +23,7 @@ import Box from '@mui/material/Box';
 const getDesignation = ()=>([
   { id: '1', name: 'Manager' },
   { id: '2', name: 'Team Lead' },
-  { id: '3', name: 'Employee' },
-  
+  { id: '3', name: 'Employee' }, 
 ])
 
 
@@ -37,6 +33,8 @@ const getDepartment = ()=>([
   { id: '3', name: 'Digital Assurance' },
   
 ])
+
+
 
 
 const ITEM_HEIGHT = 48;
@@ -97,6 +95,14 @@ const Register = () => {
   
 
   
+  // let getManagers =()=>{
+  //   console.log(ManagerList);
+  //   const AllManagers = ManagerList.map((e)=>{return e.name}) 
+  //   console.log(AllManagers)
+  //   return AllManagers;
+  //  };
+  //  getManagers();
+
 
   const close = () => {
     history.push("/admin");
@@ -122,6 +128,20 @@ if(Object.keys(formError).length===0&&isSubmit){
 
 },[formError])
 
+useEffect(() => {
+  
+    }, []);
+  
+    function generatePassword() {
+      var length = 9,
+          charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$#",
+          retVal = "";
+      for (var i = 0, n = charset.length; i < length; ++i) {
+          retVal += charset.charAt(Math.floor(Math.random() * n));
+      }
+      user.password=retVal;
+      console.log(retVal);
+  }
 
 const validate =(values , message)=>{
 const error = {};
@@ -143,12 +163,15 @@ if(!(values.designation)){
   if(!(values.department)){
     error.department="Please select department"
   }
-if(!values.password){
-  error.password="Please enter password";
-}
-else if(!isStrongPassword(values.password)){
-  error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
-}
+  if(!(values.manager)){
+    error.manager="Please select manager"
+  }
+// if(!values.password){
+//   error.password="Please enter password";
+// }
+// else if(!isStrongPassword(values.password)){
+//   error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
+// }
 
  return error;
   }
@@ -156,6 +179,8 @@ else if(!isStrongPassword(values.password)){
 
   const register = (evt) => {
     evt.preventDefault();
+    generatePassword();
+
     setFormError(validate(user, successMessage));
     setisSubmit(true);
   };
@@ -189,7 +214,7 @@ else if(!isStrongPassword(values.password)){
               type="text"
               value={user.name}
               onChange={handleChange}
-              placeholder="Enter your Name"
+              placeholder="Enter your name"
               variant='outlined'
               error = {formError.name} />
           
@@ -208,7 +233,7 @@ else if(!isStrongPassword(values.password)){
           type="email"
           value={user.email}
           onChange={handleChange}
-          placeholder="Enter your Email"
+          placeholder="Enter your email"
           error={formError.email || emailError}
           />   
           </Col>
@@ -235,7 +260,7 @@ else if(!isStrongPassword(values.password)){
       </FormControl>
             </Col>
           </Form.Group>
-
+{/* 
           {(user.designation === "Employee" ||
             user.designation === "Team Lead") && (
             <>
@@ -246,30 +271,67 @@ else if(!isStrongPassword(values.password)){
                 <Col sm="8">
                   <FormControl sx={{ m: 1, width: '25ch' }}>
                   <Controls.Select 
-                  
                   onChange={handleChange}
                   name="manager"
                   labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper">
-                  <MenuItem value="">
+                  id="demo-simple-select-helper"
+                  options={ManagerList?.map((ef) => {
+                    return(
+                      <>
+                        <MenuItem value={ef._id} key={ef._id}>
+                          {ef.name}
+                        </MenuItem>
+                       </>
+                      
+                    );
+                  })}>
+                  {/* <MenuItem value="">
                   <em>None</em>
-                </MenuItem>
-                    {ManagerList?.map((ef) => {
-                      return (
-                        
-                          <MenuItem value={ef._id} key={ef._id}>
-                            {ef.name}
-                          </MenuItem>
-                         
-                        
-                      );
-                    })}
-                    </Controls.Select>
+                </MenuItem> */}
+                    {/* </Controls.Select>
                   </FormControl>
                   </Col>
                 </Form.Group>
               </>
-            )}
+            )} */}
+
+            {(user.designation === "Employee" ||
+            user.designation === "Team Lead") && (
+            <>
+              <Form.Group as={Row} className="mb-2">
+                <Form.Label column sm="4">
+                  Manager
+                </Form.Label>
+                <Col sm="8">
+
+                <FormControl sx={{ m: 1, width: '25ch' }}>
+                  <Form.Control
+                    as="select"
+                    onChange={handleChange}
+                    name="manager"
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    sx={{ m: 1, width: '25ch' }}
+                    error={formError.manager}
+                  > <option>Select Manager</option>
+                   
+                    {ManagerList?.map((ef) => {
+                      return (
+                        <>
+                          <option value={ef._id} key={ef._id}>
+                            {ef.name}
+                          </option>
+                        </>
+                      );
+                    })}
+                  </Form.Control>
+                  </FormControl>
+                </Col>
+              </Form.Group>
+            </>
+          )}
+
+
             <Form.Group as={Row} className="mb-2">
               <Form.Label column sm="4" className="left">
                 Department
@@ -284,6 +346,7 @@ else if(!isStrongPassword(values.password)){
                   onChange={handleChange}
                   options={getDepartment()}
                   error={formError.department}
+                  placeholder="Select department"
                 >
       
                   </Controls.Select>
@@ -291,7 +354,7 @@ else if(!isStrongPassword(values.password)){
               </Col>
             </Form.Group>
 
-            <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
+            {/* <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
             <Form.Label column sm="4" className='left'>
               Password
             </Form.Label>
@@ -307,7 +370,7 @@ else if(!isStrongPassword(values.password)){
               />
             
             </Col>
-          </Form.Group>
+          </Form.Group> */}
           
         
           <div className="NominateHeadingButton">
