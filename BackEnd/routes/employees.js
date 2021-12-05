@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 import Employee from "../app.js";
 import mongoose from "mongoose";
 import crypto from "crypto";
+import sendEmail from "../config/sendEmail.js";
 
 const router = express.Router();
-
 
 //Get All Employees
 router.get("/", async (req, res) => {
@@ -29,7 +29,6 @@ router.get("/:id", async (req, res) => {
   });
 });
 
-
 // For Manager get His Employees
 router.get("/mangersDetails/:id", async (req, res) => {
   Employee.find({ manager: req.params.id })
@@ -43,78 +42,82 @@ router.get("/mangersDetails/:id", async (req, res) => {
     });
 });
 
-
 //All Employees for Admin Employee Details Table
 router.get("/employe/mangersDetails", async (req, res) => {
-  const EmpDetails = Employee.find({designation:{$ne:"Admin"}}).populate('manager').exec((err,result)=>{
-   if(err){
-     res.send(err)
-   }
-   else{
-     res.send(result)
-   }
-  })   
+  const EmpDetails = Employee.find({ designation: { $ne: "Admin" } })
+    .populate("manager")
+    .exec((err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    });
 });
 
 //Edit employee for Admin Edit page
 router.put("/", async (req, res) => {
   const user = req.body;
   const editUser = new Employee(user);
-  
+
   Employee.findOne({ email: user.email }, async (err, result) => {
-    if (result) {res.send({success: false, message:"Email already registered"});
-    }});
+    if (result) {
+      res.send({ success: false, message: "Email already registered" });
+    }
+  });
 
   try {
     await Employee.updateOne({ _id: user._id }, editUser);
-    res.send({success: true, message:"User updated successfully",editUser});
+    res.send({ success: true, message: "User updated successfully", editUser });
   } catch (error) {
     res.json({ message: error.message });
   }
 });
 
 //Working reset password
-router.put("/reset/:token", async (req, res)=>{
-
+router.put("/reset/:token", async (req, res) => {
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.token)
     .digest("hex");
-    
-    const user= await Employee.findOne({
-      resetPasswordToken,
-      resetPasswordExpire:{$gt : Date.now()},
-    })
 
-    try{
-    if(!user){
-      res.status(208).json({ success: false,  message:"Link not valid, please reset link",});
-        }
+  const user = await Employee.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
 
-    if(req.body.password !== req.body.confirmPassword){
-      res.status(208).json({ success: false,  message:"Password not matched",});
-  
+  try {
+    if (!user) {
+      res
+        .status(208)
+        .json({ success: false, message: "Link not valid, please reset link" });
     }
 
+    if (req.body.password !== req.body.confirmPassword) {
+      res.status(208).json({ success: false, message: "Password not matched" });
+    }
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(req.body.password, salt);
- //user.password= req.body.password;
-    user.resetPasswordToken= undefined;
-    user.resetPasswordExpire=undefined;
+    //user.password= req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
 
     await user.save();
-  
-    res.status(200).json({ success: true,  message:"Password changed succesfully",});
-  
-  }catch(err){
-    res.status(208).json({ success: false,  message:"Generated error while resetting password",err});
-}
-})
 
-
-
-
+    res
+      .status(200)
+      .json({ success: true, message: "Password changed succesfully" });
+  } catch (err) {
+    res
+      .status(208)
+      .json({
+        success: false,
+        message: "Generated error while resetting password",
+        err,
+      });
+  }
+});
 
 //Register New Employee for Admin Register Page
 router.post("/", async (req, res) => {
@@ -123,9 +126,9 @@ router.post("/", async (req, res) => {
   Employee.findOne({ email: email }, async (err, user) => {
     if (user) {
       return res.status(208).json({
-          success: false,
-          message: "Email already registered",
-        });
+        success: false,
+        message: "Email already registered",
+      });
     } else {
       if (!manager) {
         const Emp = new Employee({
@@ -139,9 +142,19 @@ router.post("/", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         Emp.password = await bcrypt.hash(password, salt);
 
+        const message = `Your are registered as employee in organisation:- \n\n Please follow link to login to Reward and Recognition System(R&R) :- http://localhost:3000/ \n\n Login with password:  ${password} \n\n We recommend you to change the password after login`;
+
+        await sendEmail({
+          email:Emp.email,
+          subject: `Registration in reward and registration system`,
+          message,
+        });
+
         Emp.save()
           .then(() => {
-            res.status(200).json({ success: true,  message: "Successfully registered",});
+            res
+              .status(200)
+              .json({ success: true, message: "Successfully registered" });
           })
           .catch((e) => {
             console.log("Error Message while Saving in DB: " + e);
@@ -159,9 +172,19 @@ router.post("/", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         Emp.password = await bcrypt.hash(password, salt);
 
+        const message = `Your are registered as employee in organisation:- \n\n Please follow link to login to Reward and Recognition System(R&R) :- http://localhost:3000/ \n\n Login with password:  ${password} \n\n We recommend you to change the password after login.`;
+
+        await sendEmail({
+          email:email,
+          subject: `Registration in reward and registration system`,
+          message,
+        });
+
         Emp.save()
           .then(() => {
-            res.status(200).json({ success: true,  message: "Successfully registered",});
+            res
+              .status(200)
+              .json({ success: true, message: "Successfully registered" });
           })
           .catch((e) => {
             console.log("Error Message while Saving in DB: " + e);
