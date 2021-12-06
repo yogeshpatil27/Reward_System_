@@ -55,11 +55,15 @@ const Register = () => {
   const history = useHistory();
   const [emailError, setemailError] = useState();
   const [successMessage, setSuccessMessage] = useState();
-  const [isSubmit, setisSubmit] = useState(true);
+  const [isSubmit, setisSubmit] = useState(false);
   const [ManagerList, setManagerData] = useState([]);
 
   
-
+  const getManagers=()=>(
+    [
+    ManagerList
+    ]
+  )
   useEffect(() => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
       console.log("I am a Admin");
@@ -161,9 +165,16 @@ if(!(values.designation)){
   if(!(values.department)){
     error.department="Please select department"
   }
-  if(!(values.manager)){
+  if((values.designation == "Employee" ||
+  values.designation == "Team Lead")
+  ){
+      if(isEmpty(values.manager)){
     error.manager="Please select manager"
   }
+  }
+  // if(!(values.manager)){
+  //   error.manager="Please select manager"
+  // }
 // if(!values.password){
 //   error.password="Please enter password";
 // }
@@ -176,6 +187,7 @@ if(!(values.designation)){
 
 
   const register = (evt) => {
+  debugger;
     evt.preventDefault();
     generatePassword();
 
@@ -258,52 +270,49 @@ if(!(values.designation)){
       </FormControl>
             </Col>
           </Form.Group>
-{/* 
-          {(user.designation === "Employee" ||
-            user.designation === "Team Lead") && (
-            <>
-              <Form.Group as={Row} className="mb-2">
-                <Form.Label column sm="4" className='left'>
-                  Manager
-                </Form.Label>
-                <Col sm="8">
-                  <FormControl sx={{ m: 1, width: '25ch' }}>
-                  <Controls.Select 
-                  onChange={handleChange}
-                  name="manager"
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  options={ManagerList?.map((ef) => {
-                    return(
-                      <>
-                        <MenuItem value={ef._id} key={ef._id}>
-                          {ef.name}
-                        </MenuItem>
-                       </>
-                      
-                    );
-                  })}>
-                  {/* <MenuItem value="">
-                  <em>None</em>
-                </MenuItem> */}
-                    {/* </Controls.Select>
-                  </FormControl>
-                  </Col>
-                </Form.Group>
-              </>
-            )} */}
 
-            {(user.designation === "Employee" ||
+
+     {(user.designation === "Employee" ||
+            user.designation === "Team Lead") && (
+<Form.Group as={Row} className="mb-2" >
+              <Form.Label column sm="4" className="left">
+                Manager
+              </Form.Label>
+              <Col sm="8">
+        <FormControl sx={{ width: '25ch' }}>
+        <Controls.ManagerSelect
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          name="manager"
+          value={user.manager}
+          onChange={handleChange}
+          options={ManagerList}
+          error={formError.manager}
+          >
+        </Controls.ManagerSelect>
+      </FormControl>
+            </Col>
+          </Form.Group>
+)}
+
+
+
+
+
+
+{/* 
+//working manager form */}
+            {/* {(user.designation === "Employee" ||
             user.designation === "Team Lead") && (
             <>
               <Form.Group as={Row} className="mb-2">
                 <Form.Label column sm="4">
                   Manager
                 </Form.Label>
-                <Col sm="8">
+                <Col sm="8"  >
 
                 <FormControl sx={{ m: 1, width: '25ch' }}>
-                  <Form.Control
+                  <FormControl
                     as="select"
                     onChange={handleChange}
                     name="manager"
@@ -311,8 +320,7 @@ if(!(values.designation)){
                     id="demo-simple-select-helper"
                     sx={{ m: 1, width: '25ch' }}
                     error={formError.manager}
-                  > <option>Select Manager</option>
-                   
+                  > 
                     {ManagerList?.map((ef) => {
                       return (
                         <>
@@ -322,12 +330,15 @@ if(!(values.designation)){
                         </>
                       );
                     })}
-                  </Form.Control>
                   </FormControl>
+                  </FormControl>
+                     <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
+          {formError.manager}
+  </p>
                 </Col>
               </Form.Group>
             </>
-          )}
+          )} */}
 
 
             <Form.Group as={Row} className="mb-2">

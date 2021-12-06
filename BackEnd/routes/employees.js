@@ -121,16 +121,17 @@ router.put("/reset/:token", async (req, res) => {
 
 //Register New Employee for Admin Register Page
 router.post("/", async (req, res) => {
-  const { name, email, designation, department, manager, password } = req.body;
+  const { name, email, designation,  department,manager, password} = req.body;
 
-  Employee.findOne({ email: email }, async (err, user) => {
+
+  Employee.findOne({ email:req.body.email }, async (err, user) => {
     if (user) {
       return res.status(208).json({
         success: false,
         message: "Email already registered",
       });
-    } else {
-      if (!manager) {
+    }
+    if (!manager) {
         const Emp = new Employee({
           name,
           email,
@@ -140,49 +141,26 @@ router.post("/", async (req, res) => {
         });
 
 
-try{
-  const salt = await bcrypt.genSalt(10);
-  Emp.password = await bcrypt.hash(password, salt);
+        const salt = await bcrypt.genSalt(10);
+        Emp.password = await bcrypt.hash(password, salt);
 
-  const message = `Your are registered as employee in organisation:- \n\n Please follow link to login to Reward and Recognition System(R&R) :- http://localhost:3000/ \n\n Login with password:  ${password} \n\n We recommend you to change the password after login`;
+        const message = `Your are registered as employee in organisation:- \n\n Please follow link to login to Reward and Recognition System(R&R) :- http://localhost:3000/ \n\n Login with password:  ${password} \n\n We recommend you to change the password after login`;
 
-  await sendEmail({
-    email:email,
-    subject: `Registration in reward and registration system`,
-    message,
-  });
+        await sendEmail({
+          email:email,
+          subject: `Registration in reward and registration system`,
+          message,
+        });
 
-  Emp.save()
-    .then(() => {
-      res
-        .status(200)
-        .json({ success: true, message: "Successfully registered" });
-    })
-   
-}catch(err){
-  console.log("Error Message while Saving in DB: " + err);
-}
-
-        // const salt = await bcrypt.genSalt(10);
-        // Emp.password = await bcrypt.hash(password, salt);
-
-        // const message = `Your are registered as employee in organisation:- \n\n Please follow link to login to Reward and Recognition System(R&R) :- http://localhost:3000/ \n\n Login with password:  ${password} \n\n We recommend you to change the password after login`;
-
-        // await sendEmail({
-        //   email:Emp.email,
-        //   subject: `Registration in reward and registration system`,
-        //   message,
-        // });
-
-        // Emp.save()
-        //   .then(() => {
-        //     res
-        //       .status(200)
-        //       .json({ success: true, message: "Successfully registered" });
-        //   })
-        //   .catch((e) => {
-        //     console.log("Error Message while Saving in DB: " + e);
-        //   });
+        Emp.save()
+          .then(() => {
+            res
+              .status(200)
+              .json({ success: true, message: "Successfully registered" });
+          })
+          .catch((err) => {
+            console.log("Error Message while Saving in DB: " + err);
+          });
       } else {
         const Emp = new Employee({
           name,
@@ -210,11 +188,12 @@ try{
               .status(200)
               .json({ success: true, message: "Successfully registered" });
           })
-          .catch((e) => {
-            console.log("Error Message while Saving in DB: " + e);
+          .catch((err) => {
+            console.log("Error Message while Saving in DB: " + err);
           });
       }
-    }
+    }).catch((e)=>{
+    console.log("Error Message while Saving in DB 2: " + e);
   });
 });
 
