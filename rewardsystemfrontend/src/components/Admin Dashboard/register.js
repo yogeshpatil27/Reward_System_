@@ -120,9 +120,12 @@ if(Object.keys(formError).length===0&&isSubmit){
   axios.post("http://localhost:9009/employees", user).then((res) => {
     
   if(res.data.success===true){
-  setSuccessMessage(res.data.message);}
+  setSuccessMessage(res.data.message);
+  setemailError("");
+  ;}
   else if(res.data.success===false){
     setemailError(res.data.message);
+    setSuccessMessage("")
   }
     //alert(res.data.message)
     //setLoginUser(res.data.user)

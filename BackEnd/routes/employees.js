@@ -192,9 +192,8 @@ router.post("/", async (req, res) => {
             console.log("Error Message while Saving in DB: " + err);
           });
       }
-    }).catch((e)=>{
-    console.log("Error Message while Saving in DB 2: " + e);
-  });
+    })
+ 
 });
 
 //Delete Employee for Admin Page
