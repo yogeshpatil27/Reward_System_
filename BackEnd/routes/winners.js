@@ -32,10 +32,10 @@ router.post("/", async (req, res) => {
        await win
        .save()
        .then(() => {
-         res.send({ message: "Succesfully Declaired Winner" });
+         res.send({ message: "Winner declaired successfully" });
        })
        .catch((e) => {
-         console.log("Error occures while Declairing Winner", e);
+         console.log("Error occures while declairing winner", e);
        });
   
       }

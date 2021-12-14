@@ -175,15 +175,6 @@ if(!(values.designation)){
     error.manager="Please select manager"
   }
   }
-  // if(!(values.manager)){
-  //   error.manager="Please select manager"
-  // }
-// if(!values.password){
-//   error.password="Please enter password";
-// }
-// else if(!isStrongPassword(values.password)){
-//   error.password="Password should atleast have minimum 8, 1 Lowercase, 1 Uppercase, 1 Number, 1 Special characters"
-// }
 
  return error;
   }
@@ -201,7 +192,7 @@ if(!(values.designation)){
   return (
    <>
       <AdminHeader />
-
+      <Container className="SetupForm">
       <Box
     sx={{
       '& .MuiTextField-root': { width: '25ch' },
@@ -209,13 +200,11 @@ if(!(values.designation)){
     noValidate
     autoComplete="off"
   >
-        <div className="popup">
+        <div className="SetupForm">
        
-    <div className="nominate"  >
+    <div className="SetupForm"  >
     <Form>
-    <h2 className='NominateHeadingButton'>Register Employee</h2>
-      
-       
+    <h2 className='heading-1'>Register Employee</h2>
         <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
           <Form.Label column sm="4" className='left'>
             Name
@@ -236,7 +225,7 @@ if(!(values.designation)){
         
 
         <Form.Group as={Row} className="mb-2" controlId="formPlaintextEmail">
-          <Form.Label column sm="4" >
+          <Form.Label column sm="4" className='left' >
             Email
           </Form.Label>
           <Col sm="8">
@@ -299,51 +288,6 @@ if(!(values.designation)){
 )}
 
 
-
-
-
-
-{/* 
-//working manager form */}
-            {/* {(user.designation === "Employee" ||
-            user.designation === "Team Lead") && (
-            <>
-              <Form.Group as={Row} className="mb-2">
-                <Form.Label column sm="4">
-                  Manager
-                </Form.Label>
-                <Col sm="8"  >
-
-                <FormControl sx={{ m: 1, width: '25ch' }}>
-                  <FormControl
-                    as="select"
-                    onChange={handleChange}
-                    name="manager"
-                    labelId="demo-simple-select-helper-label"
-                    id="demo-simple-select-helper"
-                    sx={{ m: 1, width: '25ch' }}
-                    error={formError.manager}
-                  > 
-                    {ManagerList?.map((ef) => {
-                      return (
-                        <>
-                          <option value={ef._id} key={ef._id}>
-                            {ef.name}
-                          </option>
-                        </>
-                      );
-                    })}
-                  </FormControl>
-                  </FormControl>
-                     <p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
-          {formError.manager}
-  </p>
-                </Col>
-              </Form.Group>
-            </>
-          )} */}
-
-
             <Form.Group as={Row} className="mb-2">
               <Form.Label column sm="4" className="left">
                 Department
@@ -366,24 +310,6 @@ if(!(values.designation)){
               </Col>
             </Form.Group>
 
-            {/* <Form.Group as={Row} className="mb-2"  controlId="formPlaintextName">
-            <Form.Label column sm="4" className='left'>
-              Password
-            </Form.Label>
-            <Col sm="8" >
-             
-              <Controls.Input
-              name="password"
-              type="password"
-              value={user.password}
-              onChange={handleChange}
-              placeholder="Enter your Password"
-              error = {formError.password}
-              />
-            
-            </Col>
-          </Form.Group> */}
-          
         
           <div className="NominateHeadingButton">
             <Controls.Button
@@ -410,7 +336,7 @@ if(!(values.designation)){
        </div>
        </div>
        </Box>
-      
+</Container>
       
       </>
    

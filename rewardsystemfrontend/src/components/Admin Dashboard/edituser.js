@@ -11,11 +11,27 @@ import isEmpty from "validator/es/lib/isEmpty";
 import isStrongPassword from "validator/es/lib/isStrongPassword";
 import Controls from "../Manager Dashboard/controls/Controls";
 import AdminHeader from '../Header/AdminHeader'
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+
 
 const Edituser = (props) => {
   const FormButtons = styled.div`
     display: flex;
   `;
+
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 100,
+      },
+    },
+  };
+
 
   const [successMessage, setsuccessMessage] = useState();
   const [ErrorMessage, setErrorMessage] = useState();
@@ -23,6 +39,21 @@ const Edituser = (props) => {
   const { id } = useParams();
 
   const [ManagerList, setManagerData] = useState([]);
+
+
+  const getDesignation = ()=>([
+    { id: '1', name: 'Manager' },
+    { id: '2', name: 'Team Lead' },
+    { id: '3', name: 'Employee' }, 
+  ])
+
+  const getDepartment = ()=>([
+    { id: '1', name: 'Development' },
+    { id: '2', name: 'Quality Assurance' },
+    { id: '3', name: 'Digital Assurance' },
+    
+  ])
+
 
   useEffect(() => {
     if (isAuthenticated() && isAuthenticated().designation === "Admin") {
@@ -35,7 +66,7 @@ const Edituser = (props) => {
   useEffect(() => {
     axios.get("http://localhost:9009/manage").then((res) => {
       setManagerData(res.data);
-      console.log(ManagerList);
+      //console.log(ManagerList);
     });
   }, []);
 
@@ -82,6 +113,8 @@ const Edituser = (props) => {
   }, [id]);
 
   const update = () => {
+    setFormError(validate(empDetails));
+
     if (isSubmit === true) {
       setFormError(validate(empDetails));
       setisSubmit(false);
@@ -107,68 +140,106 @@ const Edituser = (props) => {
   return (
     <>
     <AdminHeader />
-      <Container className="SetupForm">
-        <h2 className="heading-1">Update Employee Details</h2>
+    <Container className="SetupForm">
+      <Box
+    sx={{
+      '& .MuiTextField-root': { width: '25ch' },
+    }}
+    noValidate
+    autoComplete="off"
+  >
+        <div className="SetupForm">
+        <div className="SetupForm">
         {/*<div className="card-body">*/}
         <Form>
+        <h2 className="heading-1">Update Employee Details</h2>
           <Form.Group as={Row} className="mb-2">
-            <Form.Label column sm="4">
+            <Form.Label column sm="4" className='left'>
               Name
             </Form.Label>
             <Col sm="8">
-              <Form.Control
+              <Controls.Input
                 name="name"
                 type="text"
+                placeholder="Enter your name"
                 value={empDetails.name}
                 onChange={handleChange}
+                error={formError.name}
               />
             </Col>
           </Form.Group>
-          <p style={{ color: "red", marginLeft: "30%" }}>{formError.name}</p>
           <Form.Group as={Row} className="mb-2">
-            <Form.Label column sm="4">
+            <Form.Label column sm="4" className='left'>
               Email
             </Form.Label>
             <Col sm="8">
-              <Form.Control
+              <Controls.Input
                 name="email"
                 type="email"
+                placeholder="Enter your email"
                 value={empDetails.email}
                 onChange={handleChange}
+                error={formError.email}
               />
             </Col>
           </Form.Group>
-          <p style={{ color: "red", marginLeft: "30%" }}>
+          {/* <p style={{ color: "red", marginLeft: "30%" }}>
             {formError.email || ErrorMessage}
-          </p>
+          </p> */}
           {/* <p style={{ color: "red", marginLeft: "30%" }}>
               {formError.email}
             </p> */}
-          <Form.Group as={Row} className="mb-2">
-            <Form.Label column sm="4">
-              Designation
-            </Form.Label>
-            <Col sm="8">
-              <Form.Control
-                as="select"
-                name="designation"
-                value={empDetails.designation}
-                onChange={handleChange}
-              >
-                <option defaultValue value="Manager">
-                  Manager
-                </option>
-                <option value="Team Lead">Team Lead</option>
-                <option value="Employee">Employee</option>
-              </Form.Control>
+   <Form.Group as={Row} className="mb-2" >
+              <Form.Label column sm="4" className="left">
+                Designation
+              </Form.Label>
+              <Col sm="8">
+        <FormControl sx={{ width: '25ch' }}>
+        <Controls.Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          name="designation"
+          value={empDetails.designation}
+          onChange={handleChange}
+          options={getDesignation()}
+          error={formError.designation}
+          >
+        </Controls.Select>
+      </FormControl>
             </Col>
           </Form.Group>
 
           {(empDetails.designation === "Employee" ||
             empDetails.designation === "Team Lead") && (
+<Form.Group as={Row} className="mb-2" >
+              <Form.Label column sm="4" className="left">
+                Manager
+              </Form.Label>
+              <Col sm="8">
+        <FormControl sx={{ width: '25ch' }}>
+        <Controls.ManagerSelect
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          name="manager"
+          value={empDetails.manager}
+          onChange={handleChange}
+          options={ManagerList}
+          error={formError.manager}
+          >
+        </Controls.ManagerSelect>
+      </FormControl>
+            </Col>
+          </Form.Group>
+)}
+
+
+
+{/* Working but not good
+          {(empDetails.designation === "Employee" ||
+            empDetails.designation === "Team Lead") && (
             <>
               <Form.Group as={Row} className="mb-2">
-                <Form.Label column sm="4">
+                <Form.Label column sm="4" className='left'>
                   Manager
                 </Form.Label>
                 <Col sm="8">
@@ -191,10 +262,33 @@ const Edituser = (props) => {
                 </Col>
               </Form.Group>
             </>
-          )}
+          )} */}
 
-          <Form.Group as={Row} className="mb-2">
-            <Form.Label column sm="4">
+<Form.Group as={Row} className="mb-2">
+              <Form.Label column sm="4" className="left">
+                Department
+              </Form.Label>
+              <Col sm="8">
+              
+                <FormControl sx={{ m: 1, width: '25ch' }}>
+                <Controls.Select 
+                 MenuProps={MenuProps}
+                  name="department"
+                  value={empDetails.department}
+                  onChange={handleChange}
+                  options={getDepartment()}
+                  error={formError.department}
+                  placeholder="Select department"
+                >
+      
+                  </Controls.Select>
+                </FormControl>
+              </Col>
+            </Form.Group>
+
+
+          {/* <Form.Group as={Row} className="mb-2">
+            <Form.Label column sm="4" className='left'>
               Department
             </Form.Label>
             <Col sm="8">
@@ -211,10 +305,10 @@ const Edituser = (props) => {
                 <option value="Digital Assurance">Digital Assurance</option>
               </Form.Control>
             </Col>
-          </Form.Group>
+          </Form.Group> */}
 
-          <FormButtons>
-            <div className="button">
+       
+            <div className="button"className="NominateHeadingButton">
               <Controls.Button text="Update" onClick={update} />
               <Controls.Button
                 text="Close"
@@ -223,10 +317,13 @@ const Edituser = (props) => {
                 onClick={close}
               />
             </div>
-          </FormButtons>
+            
         </Form>
-        <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>{successMessage}</p>
-      </Container>
+    </div></div>
+        </Box>
+        </Container>
+      
+      <p style={{ color: "black",fontSize:"18px",fontWeight: "bold", marginTop: "5%" }}>{successMessage}</p>
     </>
   );
 };

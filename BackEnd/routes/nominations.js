@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
      await nom
      .save()
      .then(() => {
-       res.send({ message: "Succesdufully Nominated" });
+       res.send({ message: "Successfully nominated" });
      })
      .catch((e) => {
        console.log("Error occures while Nominating", e);
