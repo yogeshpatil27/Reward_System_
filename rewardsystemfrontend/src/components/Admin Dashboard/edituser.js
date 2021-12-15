@@ -70,10 +70,13 @@ const Edituser = (props) => {
     });
   }, []);
 
+
+ 
+
   const close = () => {
     history.push("/EmployeeDetails");
   };
-  const [isSubmit, setisSubmit] = useState(true);
+  const [isSubmit, setisSubmit] = useState(false);
   const [formError, setFormError] = useState({});
   const [empDetails, setEmployee] = useState({
     name: "",
@@ -112,19 +115,17 @@ const Edituser = (props) => {
     });
   }, [id]);
 
-  const update = () => {
-    setFormError(validate(empDetails));
 
-    if (isSubmit === true) {
-      setFormError(validate(empDetails));
-      setisSubmit(false);
-    }
-    if (isSubmit === false) {
+
+  useEffect(()=>{
+
+    if(Object.keys(formError).length===0&&isSubmit){
+   
       const { name, email, designation, department, manager } = empDetails;
       if (name && email) {
         axios.put("http://localhost:9009/employees", empDetails).then((res) => {
           // alert(res.data.message)
-          console.log("update res", res);
+          //console.log("update res", res);
           if (res?.data?.success === true) {
             setsuccessMessage(res?.data?.message);
             setErrorMessage("");
@@ -135,6 +136,14 @@ const Edituser = (props) => {
         });
       }
     }
+  },[formError])
+
+
+
+  const update = () => {
+setFormError(validate(empDetails));
+setisSubmit(true);
+
   };
 
   return (
@@ -168,6 +177,8 @@ const Edituser = (props) => {
               />
             </Col>
           </Form.Group>
+
+
           <Form.Group as={Row} className="mb-2">
             <Form.Label column sm="4" className='left'>
               Email
@@ -183,12 +194,9 @@ const Edituser = (props) => {
               />
             </Col>
           </Form.Group>
-          {/* <p style={{ color: "red", marginLeft: "30%" }}>
-            {formError.email || ErrorMessage}
-          </p> */}
-          {/* <p style={{ color: "red", marginLeft: "30%" }}>
-              {formError.email}
-            </p> */}
+
+
+        
    <Form.Group as={Row} className="mb-2" >
               <Form.Label column sm="4" className="left">
                 Designation
@@ -231,7 +239,6 @@ const Edituser = (props) => {
             </Col>
           </Form.Group>
 )}
-
 
 
 {/* Working but not good

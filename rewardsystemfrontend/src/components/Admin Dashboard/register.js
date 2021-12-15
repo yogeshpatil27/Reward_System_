@@ -181,7 +181,7 @@ if(!(values.designation)){
 
 
   const register = (evt) => {
-  debugger;
+ 
     evt.preventDefault();
     generatePassword();
 
@@ -243,6 +243,7 @@ if(!(values.designation)){
         {/*<p style={{ color: "red", marginTop: "2%", marginLeft: "30%" }}>
           {emailError}
   </p>*/}
+  
         <Form.Group as={Row} className="mb-2" >
               <Form.Label column sm="4" className="left">
                 Designation

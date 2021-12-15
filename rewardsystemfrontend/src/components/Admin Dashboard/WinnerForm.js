@@ -31,11 +31,14 @@ const WinnerForm = (props) => {
   const [values, setValues] = useState();
   //const [winnerDetails, setWinnersDetails]=useState([]);
   const currentDate = new Date();
-  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM"));
+  // const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM"));
+  // const [winnerDetails, setWinnersDetails] = useState([]);
+  const [PromtMessage, setPromtMessage] = useState();
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+
+  // const handleDateChange = (date) => {
+  //   setSelectedDate(date);
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,28 +50,28 @@ const WinnerForm = (props) => {
 
   useEffect(() => {
     getNominationsbyID();
-    GetAllwinners();
+    //GetAllwinners();
   }, []);
 
   const getNominationsbyID = async () => {
     await axios.get("http://localhost:9009/nominations/" + id).then((res) => {
       setNominations(res?.data?.[0]);
+      console.log(res?.data?.[0])
     });
   };
 
-  const [winnerDetails, setWinnersDetails] = useState([]);
-  const [PromtMessage, setPromtMessage] = useState();
 
-  const GetAllwinners = async () => {
-    const res = await axios.get(`http://localhost:9009/winners`);
-    //console.log("This winners data I want to print", res.data);
 
-    let WinnerMonths = res.data.map((a) => a.Months);
-    let MonthsasString = WinnerMonths.map((a) => moment(a).format("MMMM"));
-    console.log(MonthsasString);
+  // const GetAllwinners = async () => {
+  //   const res = await axios.get(`http://localhost:9009/winners`);
+  //   //console.log("This winners data I want to print", res.data);
 
-    setWinnersDetails(MonthsasString);
-  };
+  //   let WinnerMonths = res.data.map((a) => a.Months);
+  //   let MonthsasString = WinnerMonths.map((a) => moment(a).format("MMMM"));
+  //   console.log(MonthsasString);
+
+  //   setWinnersDetails(MonthsasString);
+  // };
 
   const initialFValues = {
     //_id: getNonimations._id,
@@ -76,7 +79,7 @@ const WinnerForm = (props) => {
     designation: getNonimations.designation,
     nominatedBy: getNonimations.nominatedBy,
     department: getNonimations.department,
-    Months: selectedDate,
+    Months: moment(getNonimations.Months).format("YYYY-MM"),
   };
 
   const handleSubmit = async (e) => {

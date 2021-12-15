@@ -69,7 +69,9 @@ const ResetPassword = () => {
 
         if(res.data.success===true){
             setSuccessMessage(res.data.message);
-        setemailError("")}
+        setemailError("")
+       
+    }
             else if(res.data.success===false){
               setemailError(res.data.message);
             }
